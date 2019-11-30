@@ -19,5 +19,6 @@ namespace DTXMania2.演奏
         Tom2,
         Tom3,
         RightCymbal,
+        Ride
     }
 }

@@ -21,6 +21,8 @@ namespace DTXMania2.演奏
         /// </summary>
         public ドラムチッププロパティ this[ チップ種別 chipType ] => this.チップtoプロパティ[ chipType ];
 
+        public PlayMode 演奏モード { get; protected set; }
+
         public 表示レーンの左右 表示レーンの左右 { get; protected set; }
 
         public 入力グループプリセット種別 入力グループプリセット種別 { get; protected set; }
@@ -30,10 +32,11 @@ namespace DTXMania2.演奏
         // 生成と終了
 
 
-        public ドラムチッププロパティリスト( 表示レーンの左右 表示レーンの左右, 入力グループプリセット種別 入力グループプリセット種別 )
+        public ドラムチッププロパティリスト( PlayMode 演奏モード, 表示レーンの左右 表示レーンの左右, 入力グループプリセット種別 入力グループプリセット種別 )
         {
             using var _ = new LogBlock( Log.現在のメソッド名 );
 
+            this.演奏モード = 演奏モード;
             this.表示レーンの左右 = 表示レーンの左右;
             this.入力グループプリセット種別 = 入力グループプリセット種別;
 
@@ -99,7 +102,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.Ride,
                     レーン種別 = レーン種別.Ride,
                     //表示レーン種別 = ...
-                    表示チップ種別 = ( this.表示レーンの左右.Rideは左 ) ? 表示チップ種別.LeftRide : 表示チップ種別.RightRide,
+                    //表示チップ種別 = ...
                     //AutoPlay種別 = ...
                     //入力グループ種別 = ...
                     発声前消音 = false,
@@ -124,7 +127,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.Ride_Cup,
                     レーン種別 = レーン種別.Ride,
                     //表示レーン種別 = ...
-                    表示チップ種別 = ( this.表示レーンの左右.Rideは左 ) ? 表示チップ種別.LeftRide_Cup : 表示チップ種別.RightRide_Cup,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.Ride,
                     //AutoPlay種別 = ...
                     //入力グループ種別 = ...
@@ -150,7 +153,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.China,
                     レーン種別 = レーン種別.China,
                     //表示レーン種別 = ...
-                    表示チップ種別 = ( this.表示レーンの左右.Chinaは左 ) ? 表示チップ種別.LeftChina : 表示チップ種別.RightChina,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.China,
                     //AutoPlay種別 = ...
                     //入力グループ種別 = ...
@@ -176,7 +179,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.Splash,
                     レーン種別 = レーン種別.Splash,
                     //表示レーン種別 = ...
-                    表示チップ種別 = ( this.表示レーンの左右.Splashは左 ) ? 表示チップ種別.LeftSplash : 表示チップ種別.RightSplash,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.Splash,
                     //AutoPlay種別 = ...
                     //入力グループ種別 = ...
@@ -202,7 +205,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.HiHat_Open,
                     レーン種別 = レーン種別.HiHat,
                     表示レーン種別 = 表示レーン種別.HiHat,
-                    表示チップ種別 = 表示チップ種別.HiHat_Open,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.HiHat_Open,
                     AutoPlay種別 = AutoPlay種別.HiHat,
                     //入力グループ種別 = ...
@@ -228,7 +231,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.HiHat_HalfOpen,
                     レーン種別 = レーン種別.HiHat,
                     表示レーン種別 = 表示レーン種別.HiHat,
-                    表示チップ種別 = 表示チップ種別.HiHat_HalfOpen,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.HiHat_Open,
                     AutoPlay種別 = AutoPlay種別.HiHat,
                     //入力グループ種別 = ...
@@ -291,12 +294,12 @@ namespace DTXMania2.演奏
                     AutoPlayON_自動ヒット_判定 = true,
                     AutoPlayON_Miss判定 = false,
                     AutoPlayOFF_自動ヒット_再生 = false,
-                    AutoPlayOFF_自動ヒット_非表示 = true,
-                    AutoPlayOFF_自動ヒット_判定 = false,
+                    //AutoPlayOFF_自動ヒット_非表示 = true,
+                    //AutoPlayOFF_自動ヒット_判定 = false,
                     AutoPlayOFF_ユーザヒット_再生 = true,
                     AutoPlayOFF_ユーザヒット_非表示 = true,
-                    AutoPlayOFF_ユーザヒット_判定 = false,
-                    AutoPlayOFF_Miss判定 = false,
+                    //AutoPlayOFF_ユーザヒット_判定 = false,
+                    //AutoPlayOFF_Miss判定 = false,
                 },
                 //----------------
                 #endregion
@@ -332,7 +335,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.Snare_OpenRim,
                     レーン種別 = レーン種別.Snare,
                     表示レーン種別 = 表示レーン種別.Snare,
-                    表示チップ種別 = 表示チップ種別.Snare_OpenRim,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.Snare_OpenRim,
                     AutoPlay種別 = AutoPlay種別.Snare,
                     入力グループ種別 = 入力グループ種別.Snare,
@@ -358,7 +361,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.Snare_ClosedRim,
                     レーン種別 = レーン種別.Snare,
                     表示レーン種別 = 表示レーン種別.Snare,
-                    表示チップ種別 = 表示チップ種別.Snare_ClosedRim,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.Snare_ClosedRim,
                     AutoPlay種別 = AutoPlay種別.Snare,
                     入力グループ種別 = 入力グループ種別.Snare,
@@ -384,7 +387,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.Snare_Ghost,
                     レーン種別 = レーン種別.Snare,
                     表示レーン種別 = 表示レーン種別.Snare,
-                    表示チップ種別 = 表示チップ種別.Snare_Ghost,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.Snare,
                     AutoPlay種別 = AutoPlay種別.Snare,
                     入力グループ種別 = 入力グループ種別.Snare,
@@ -435,10 +438,10 @@ namespace DTXMania2.演奏
                 [ チップ種別.LeftBass ] = new ドラムチッププロパティ() {
                     チップ種別 = チップ種別.LeftBass,
                     レーン種別 = レーン種別.Bass,
-                    表示レーン種別 = 表示レーン種別.Bass,
-                    表示チップ種別 = 表示チップ種別.Bass,
-                    ドラム入力種別 = ドラム入力種別.Bass,
-                    AutoPlay種別 = AutoPlay種別.Bass,
+                    //表示レーン種別 = ...
+                    //表示チップ種別 = ...
+                    //ドラム入力種別 = ドラム入力種別.Bass,
+                    //AutoPlay種別 = AutoPlay種別.Bass,
                     //入力グループ種別 = 入力グループ種別.Bass,
                     発声前消音 = false,
                     消音グループ種別 = 消音グループ種別.Unknown,
@@ -488,7 +491,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.Tom1_Rim,
                     レーン種別 = レーン種別.Tom1,
                     表示レーン種別 = 表示レーン種別.Tom1,
-                    表示チップ種別 = 表示チップ種別.Tom1_Rim,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.Tom1_Rim,
                     AutoPlay種別 = AutoPlay種別.Tom1,
                     入力グループ種別 = 入力グループ種別.Tom1,
@@ -540,7 +543,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.Tom2_Rim,
                     レーン種別 = レーン種別.Tom2,
                     表示レーン種別 = 表示レーン種別.Tom2,
-                    表示チップ種別 = 表示チップ種別.Tom2_Rim,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.Tom2_Rim,
                     AutoPlay種別 = AutoPlay種別.Tom2,
                     入力グループ種別 = 入力グループ種別.Tom2,
@@ -592,7 +595,7 @@ namespace DTXMania2.演奏
                     チップ種別 = チップ種別.Tom3_Rim,
                     レーン種別 = レーン種別.Tom3,
                     表示レーン種別 = 表示レーン種別.Tom3,
-                    表示チップ種別 = 表示チップ種別.Tom3_Rim,
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.Tom3_Rim,
                     AutoPlay種別 = AutoPlay種別.Tom3,
                     入力グループ種別 = 入力グループ種別.Tom3,
@@ -773,8 +776,8 @@ namespace DTXMania2.演奏
                 [ チップ種別.LeftCymbal_Mute ] = new ドラムチッププロパティ() {
                     チップ種別 = チップ種別.LeftCymbal_Mute,
                     レーン種別 = レーン種別.LeftCrash,
-                    表示レーン種別 = 表示レーン種別.LeftCymbal,
-                    表示チップ種別 = 表示チップ種別.LeftCymbal_Mute,
+                    //表示レーン種別 = ...
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.Unknown,
                     AutoPlay種別 = AutoPlay種別.LeftCrash,
                     入力グループ種別 = 入力グループ種別.Unknown,
@@ -799,8 +802,8 @@ namespace DTXMania2.演奏
                 [ チップ種別.RightCymbal_Mute ] = new ドラムチッププロパティ() {
                     チップ種別 = チップ種別.RightCymbal_Mute,
                     レーン種別 = レーン種別.RightCrash,
-                    表示レーン種別 = 表示レーン種別.RightCymbal,
-                    表示チップ種別 = 表示チップ種別.RightCymbal_Mute,
+                    //表示レーン種別 = ...
+                    //表示チップ種別 = ...
                     ドラム入力種別 = ドラム入力種別.Unknown,
                     AutoPlay種別 = AutoPlay種別.RightCrash,
                     入力グループ種別 = 入力グループ種別.Unknown,
@@ -1758,8 +1761,112 @@ namespace DTXMania2.演奏
                 #endregion
             };
 
+            this.反映する( 演奏モード );
             this.反映する( 表示レーンの左右 );
             this.反映する( 入力グループプリセット種別 );
+        }
+
+        /// <summary>
+        ///     演奏モードに依存するメンバに対して一括設定を行う。
+        ///     依存しないメンバには何もしない。
+        /// </summary>
+        public void 反映する(PlayMode mode)
+        {
+            this.演奏モード = mode;
+            var 配置が10レーンである = (Global.App.ログオン中のユーザ == null) ? false : Global.App.ログオン中のユーザ.レーン配置.Length > 5;
+
+            foreach (var kvp in this.チップtoプロパティ)
+            {
+                switch (kvp.Key)
+                {
+                    case チップ種別.Ride:
+                        // 191128 OrzHighlight BASICモード且つ9レーン配置のみ、ライドをシンバルとして表示する
+                        kvp.Value.表示レーン種別 = (this.表示レーンの左右.Rideは左) ? 表示レーン種別.LeftCymbal :
+                            (配置が10レーンである ? 表示レーン種別.Ride : 表示レーン種別.RightCymbal);
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC || 配置が10レーンである) ?
+                            ((this.表示レーンの左右.Rideは左) ? 表示チップ種別.LeftRide : 表示チップ種別.RightRide) :
+                            ((this.表示レーンの左右.Rideは左) ? 表示チップ種別.LeftCymbal : 表示チップ種別.RightCymbal);
+                        break;
+
+                    case チップ種別.Ride_Cup:
+                        // 191128 OrzHighlight BASICモード且つ9レーン配置のみ、ライドをシンバルとして表示する
+                        kvp.Value.表示レーン種別 = (this.表示レーンの左右.Rideは左) ? 表示レーン種別.LeftCymbal :
+                            (配置が10レーンである ? 表示レーン種別.Ride : 表示レーン種別.RightCymbal);
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC || 配置が10レーンである) ?
+                            ((this.表示レーンの左右.Rideは左) ? 表示チップ種別.LeftRide_Cup : 表示チップ種別.RightRide_Cup) :
+                            ((this.表示レーンの左右.Rideは左) ? 表示チップ種別.LeftCymbal : 表示チップ種別.RightCymbal);
+                        break;
+
+                    case チップ種別.China:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ?
+                            ((this.表示レーンの左右.Chinaは左) ? 表示チップ種別.LeftChina : 表示チップ種別.RightChina) :
+                            ((this.表示レーンの左右.Chinaは左) ? 表示チップ種別.LeftCymbal : 表示チップ種別.RightCymbal);
+                        break;
+
+                    case チップ種別.Splash:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ?
+                            ((this.表示レーンの左右.Splashは左) ? 表示チップ種別.LeftSplash : 表示チップ種別.RightSplash) :
+                            ((this.表示レーンの左右.Splashは左) ? 表示チップ種別.LeftCymbal : 表示チップ種別.RightCymbal);
+                        break;
+
+                    case チップ種別.HiHat_Open:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ? 表示チップ種別.HiHat_Open : 表示チップ種別.HiHat;
+                        break;
+
+                    case チップ種別.HiHat_HalfOpen:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ? 表示チップ種別.HiHat_HalfOpen : 表示チップ種別.HiHat;
+                        break;
+
+                    case チップ種別.HiHat_Foot:
+                        kvp.Value.AutoPlayOFF_自動ヒット_非表示 = (this.演奏モード == PlayMode.EXPERT) ? true : false;
+                        kvp.Value.AutoPlayOFF_ユーザヒット_判定 = (this.演奏モード == PlayMode.EXPERT) ? false : true;
+                        kvp.Value.AutoPlayOFF_Miss判定 = (this.演奏モード == PlayMode.EXPERT) ? false : true;
+                        kvp.Value.AutoPlayON_自動ヒット_判定 = (this.演奏モード == PlayMode.EXPERT) ? false : true;
+                        break;
+
+                    case チップ種別.Snare_OpenRim:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ? 表示チップ種別.Snare_OpenRim : 表示チップ種別.Snare;
+                        break;
+
+                    case チップ種別.Snare_ClosedRim:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ? 表示チップ種別.Snare_ClosedRim : 表示チップ種別.Snare;
+                        break;
+
+                    case チップ種別.Snare_Ghost:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ? 表示チップ種別.Snare_Ghost : 表示チップ種別.Unknown;
+                        break;
+
+                    case チップ種別.LeftBass:
+                        kvp.Value.表示チップ種別 = (this.演奏モード == PlayMode.EXPERT) ? 表示チップ種別.Bass : 
+                            ((this.演奏モード == PlayMode.BASIC) ? 表示チップ種別.Foot : 表示チップ種別.LeftBass);
+                        kvp.Value.表示レーン種別 = (this.演奏モード == PlayMode.EXPERT) ? 表示レーン種別.Bass : 表示レーン種別.Foot;
+                        kvp.Value.ドラム入力種別 = (this.演奏モード > PlayMode.BASIC) ? ドラム入力種別.Bass : ドラム入力種別.HiHat_Foot;
+                        kvp.Value.AutoPlay種別 = (this.演奏モード == PlayMode.EXPERT) ? AutoPlay種別.Bass : AutoPlay種別.Foot;
+                        break;
+
+                    case チップ種別.Tom1_Rim:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ? 表示チップ種別.Tom1_Rim : 表示チップ種別.Tom1;
+                        break;
+
+                    case チップ種別.Tom2_Rim:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ? 表示チップ種別.Tom2_Rim : 表示チップ種別.Tom2;
+                        break;
+
+                    case チップ種別.Tom3_Rim:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ? 表示チップ種別.Tom3_Rim : 表示チップ種別.Tom3;
+                        break;
+
+                    case チップ種別.LeftCymbal_Mute:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ? 表示チップ種別.LeftCymbal_Mute : 表示チップ種別.Unknown;
+                        kvp.Value.表示レーン種別 = (this.演奏モード > PlayMode.BASIC) ? 表示レーン種別.LeftCymbal : 表示レーン種別.Unknown;
+                        break;
+
+                    case チップ種別.RightCymbal_Mute:
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ? 表示チップ種別.RightCymbal_Mute : 表示チップ種別.Unknown;
+                        kvp.Value.表示レーン種別 = (this.演奏モード > PlayMode.BASIC) ? 表示レーン種別.RightCymbal : 表示レーン種別.Unknown;
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -1769,37 +1876,53 @@ namespace DTXMania2.演奏
         public void 反映する( 表示レーンの左右 position )
         {
             this.表示レーンの左右 = position;
+            var 配置が10レーンである = (Global.App.ログオン中のユーザ == null) ? false : Global.App.ログオン中のユーザ.レーン配置.Length > 5;
 
-            foreach( var kvp in this.チップtoプロパティ )
+            foreach ( var kvp in this.チップtoプロパティ )
             {
                 switch( kvp.Key )
                 {
                     case チップ種別.Ride:
-                        kvp.Value.表示レーン種別 = ( this.表示レーンの左右.Rideは左 ) ? 表示レーン種別.LeftCymbal : 表示レーン種別.RightCymbal;
-                        kvp.Value.AutoPlay種別 = ( this.表示レーンの左右.Rideは左 ) ? AutoPlay種別.LeftCrash : AutoPlay種別.RightCrash;
+                        // 191128 OrzHighlight BASICモード且つ9レーン配置のみ、ライドをシンバルとして表示する
+                        kvp.Value.表示レーン種別 = ( this.表示レーンの左右.Rideは左 ) ? 表示レーン種別.LeftCymbal : 
+                            ( 配置が10レーンである ? 表示レーン種別.Ride : 表示レーン種別.RightCymbal );
+                        kvp.Value.AutoPlay種別 = ( this.表示レーンの左右.Rideは左 ) ? AutoPlay種別.LeftCrash : 
+                            ( 配置が10レーンである ? AutoPlay種別.Ride : AutoPlay種別.RightCrash );
                         kvp.Value.消音グループ種別 = ( this.表示レーンの左右.Rideは左 ) ? 消音グループ種別.LeftCymbal : 消音グループ種別.RightCymbal;
-                        kvp.Value.表示チップ種別 = ( this.表示レーンの左右.Rideは左 ) ? 表示チップ種別.LeftRide : 表示チップ種別.RightRide;
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC || 配置が10レーンである) ?
+                            ((this.表示レーンの左右.Rideは左) ? 表示チップ種別.LeftRide : 表示チップ種別.RightRide) :
+                            ((this.表示レーンの左右.Rideは左) ? 表示チップ種別.LeftCymbal : 表示チップ種別.RightCymbal);
+
                         break;
 
                     case チップ種別.Ride_Cup:
-                        kvp.Value.表示レーン種別 = ( this.表示レーンの左右.Rideは左 ) ? 表示レーン種別.LeftCymbal : 表示レーン種別.RightCymbal;
-                        kvp.Value.AutoPlay種別 = ( this.表示レーンの左右.Rideは左 ) ? AutoPlay種別.LeftCrash : AutoPlay種別.RightCrash;
+                        // 191128 OrzHighlight BASICモード且つ9レーン配置のみ、ライドをシンバルとして表示する
+                        kvp.Value.表示レーン種別 = ( this.表示レーンの左右.Rideは左 ) ? 表示レーン種別.LeftCymbal : 
+                            ( 配置が10レーンである ? 表示レーン種別.Ride : 表示レーン種別.RightCymbal );
+                        kvp.Value.AutoPlay種別 = ( this.表示レーンの左右.Rideは左 ) ? AutoPlay種別.LeftCrash : 
+                            ( 配置が10レーンである ? AutoPlay種別.Ride : AutoPlay種別.RightCrash );
                         kvp.Value.消音グループ種別 = ( this.表示レーンの左右.Rideは左 ) ? 消音グループ種別.LeftCymbal : 消音グループ種別.RightCymbal;
-                        kvp.Value.表示チップ種別 = ( this.表示レーンの左右.Rideは左 ) ? 表示チップ種別.LeftRide_Cup : 表示チップ種別.RightRide_Cup;
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC || 配置が10レーンである) ?
+                            ((this.表示レーンの左右.Rideは左) ? 表示チップ種別.LeftRide_Cup : 表示チップ種別.RightRide_Cup) :
+                            ((this.表示レーンの左右.Rideは左) ? 表示チップ種別.LeftCymbal : 表示チップ種別.RightCymbal);
                         break;
 
                     case チップ種別.China:
                         kvp.Value.表示レーン種別 = ( this.表示レーンの左右.Chinaは左 ) ? 表示レーン種別.LeftCymbal : 表示レーン種別.RightCymbal;
                         kvp.Value.AutoPlay種別 = ( this.表示レーンの左右.Chinaは左 ) ? AutoPlay種別.LeftCrash : AutoPlay種別.RightCrash;
                         kvp.Value.消音グループ種別 = ( this.表示レーンの左右.Chinaは左 ) ? 消音グループ種別.LeftCymbal : 消音グループ種別.RightCymbal;
-                        kvp.Value.表示チップ種別 = ( this.表示レーンの左右.Chinaは左 ) ? 表示チップ種別.LeftChina : 表示チップ種別.RightChina;
+                        kvp.Value.表示チップ種別 = (this.演奏モード == PlayMode.EXPERT) ?
+                            ((this.表示レーンの左右.Chinaは左) ? 表示チップ種別.LeftChina : 表示チップ種別.RightChina) :
+                            ((this.表示レーンの左右.Chinaは左) ? 表示チップ種別.LeftCymbal : 表示チップ種別.RightCymbal);
                         break;
 
                     case チップ種別.Splash:
                         kvp.Value.表示レーン種別 = ( this.表示レーンの左右.Splashは左 ) ? 表示レーン種別.LeftCymbal : 表示レーン種別.RightCymbal;
                         kvp.Value.AutoPlay種別 = ( this.表示レーンの左右.Splashは左 ) ? AutoPlay種別.LeftCrash : AutoPlay種別.RightCrash;
                         kvp.Value.消音グループ種別 = ( this.表示レーンの左右.Splashは左 ) ? 消音グループ種別.LeftCymbal : 消音グループ種別.RightCymbal;
-                        kvp.Value.表示チップ種別 = ( this.表示レーンの左右.Splashは左 ) ? 表示チップ種別.LeftSplash : 表示チップ種別.RightSplash;
+                        kvp.Value.表示チップ種別 = (this.演奏モード == PlayMode.EXPERT) ?
+                            ((this.表示レーンの左右.Splashは左) ? 表示チップ種別.LeftSplash : 表示チップ種別.RightSplash) :
+                            ((this.表示レーンの左右.Splashは左) ? 表示チップ種別.LeftCymbal : 表示チップ種別.RightCymbal);
                         break;
                 }
             }
@@ -1835,7 +1958,8 @@ namespace DTXMania2.演奏
                                 break;
 
                             case チップ種別.LeftBass:
-                                kvp.Value.入力グループ種別 = 入力グループ種別.Bass;
+                                // 191119 OrzHighlight 要検証
+                                kvp.Value.入力グループ種別 = (this.演奏モード == PlayMode.BASIC) ? 入力グループ種別.Cymbal : 入力グループ種別.Bass;
                                 break;
                         }
                         break;
@@ -1873,7 +1997,8 @@ namespace DTXMania2.演奏
                                 break;
 
                             case チップ種別.LeftBass:
-                                kvp.Value.入力グループ種別 = 入力グループ種別.Bass;
+                                // 191119 OrzHighlight 要検証
+                                kvp.Value.入力グループ種別 = (this.演奏モード == PlayMode.BASIC) ? 入力グループ種別.HiHat : 入力グループ種別.Bass;
                                 break;
                         }
                         break;

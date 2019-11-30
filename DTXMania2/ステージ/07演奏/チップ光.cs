@@ -34,6 +34,7 @@ namespace DTXMania2.演奏
                 { 表示レーン種別.Tom2,         new 表示レーンステータス( 表示レーン種別.Tom2 ) },
                 { 表示レーン種別.Tom3,         new 表示レーンステータス( 表示レーン種別.Tom3 ) },
                 { 表示レーン種別.RightCymbal,  new 表示レーンステータス( 表示レーン種別.RightCymbal ) },
+                { 表示レーン種別.Ride,         new 表示レーンステータス( 表示レーン種別.Ride) },
             };
         }
 
@@ -232,7 +233,19 @@ namespace DTXMania2.演奏
                 this.現在の状態 = 状態.非表示;
 
                 // 表示中央位置は、レーンごとに固定。
-                this.表示中央位置dpx = new Vector2( レーンフレーム.レーン中央位置X[ lane ], 演奏ステージ.ヒット判定位置Ydpx );
+
+                if (Global.App.ログオン中のユーザ.演奏モード < PlayMode.EXPERT)
+                {
+                    this.表示中央位置dpx = new Vector2(
+                        BASIC.レーンフレーム.領域.Left + BASIC.レーンフレーム.現在のレーン配置.表示レーンの左端位置dpx[lane] + BASIC.レーンフレーム.現在のレーン配置.表示レーンの幅dpx[lane] / 2f,
+                        演奏ステージ.ヒット判定位置Ydpx);
+                }
+                if (Global.App.ログオン中のユーザ.演奏モード == PlayMode.EXPERT)
+                {
+                    this.表示中央位置dpx = new Vector2(
+                        レーンフレーム.レーン中央位置X[lane],
+                        演奏ステージ.ヒット判定位置Ydpx);
+                }
             }
             public void Dispose()
             {

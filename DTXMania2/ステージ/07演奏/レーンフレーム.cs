@@ -43,6 +43,7 @@ namespace DTXMania2.演奏
                 { 表示レーン種別.Bass, 896f },
                 { 表示レーン種別.Tom2, 976f },
                 { 表示レーン種別.Tom3, 1088f },
+                { 表示レーン種別.Ride, 1193f },
                 { 表示レーン種別.RightCymbal, 1193f },
             };
 
@@ -56,6 +57,7 @@ namespace DTXMania2.演奏
                 { 表示レーン種別.Bass, new Color4( 0xff424141 ) },
                 { 表示レーン種別.Tom2, new Color4( 0xff323267 ) },
                 { 表示レーン種別.Tom3, new Color4( 0xff70565c ) },
+                { 表示レーン種別.Ride, new Color4( 0xff7d7035 ) },
                 { 表示レーン種別.RightCymbal, new Color4( 0xff606060 ) },
             };
         }

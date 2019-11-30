@@ -49,8 +49,11 @@ namespace DTXMania2.ビュアー
             this._曲読み込み完了通知 = new ManualResetEventSlim( true );
 
             this._背景画像 = new 画像( @"$(Images)\PlayStage\Background.png" );
+            this._レーンフレームBASIC = new 演奏.BASIC.レーンフレーム();
             this._レーンフレーム = new レーンフレーム();
             this._曲名パネル = new 曲名パネル();
+            this._ドラムパッドBASIC = new 演奏.BASIC.ドラムパッド();
+            this._ヒットバーBASIC = new 演奏.BASIC.ヒットバー();
             this._ドラムキットとヒットバー = new ドラムキットとヒットバー();
             this._左サイドクリアパネル = new 左サイドクリアパネル();
             this._右サイドクリアパネル = new 右サイドクリアパネル();
@@ -59,6 +62,7 @@ namespace DTXMania2.ビュアー
             this._クリアメーター = new クリアメーター();
             this._スコア表示 = new スコア表示();
             this._プレイヤー名表示 = new プレイヤー名表示() { 名前 = userConfig.名前 };
+            演奏.BASIC.レーンフレーム.レーン配置を設定する( userConfig.レーン配置 );
             this._譜面スクロール速度 = new 譜面スクロール速度( userConfig.譜面スクロール速度 );
             this._達成率表示 = new 達成率表示();
             this._曲別SKILL = new 曲別SKILL();
@@ -83,8 +87,11 @@ namespace DTXMania2.ビュアー
             this._右サイドクリアパネル.Dispose();
             this._左サイドクリアパネル.Dispose();
             this._ドラムキットとヒットバー.Dispose();
+            this._ヒットバーBASIC.Dispose();
+            this._ドラムパッドBASIC.Dispose();
             this._曲名パネル.Dispose();
             this._レーンフレーム.Dispose();
+            this._レーンフレームBASIC.Dispose();
             this._背景画像.Dispose();
         }
 
@@ -308,7 +315,13 @@ namespace DTXMania2.ビュアー
 
         private readonly レーンフレーム _レーンフレーム;
 
+        private readonly 演奏.BASIC.レーンフレーム _レーンフレームBASIC;
+
         private readonly ドラムキットとヒットバー _ドラムキットとヒットバー;
+
+        private readonly 演奏.BASIC.ドラムパッド _ドラムパッドBASIC;
+
+        private readonly 演奏.BASIC.ヒットバー _ヒットバーBASIC;
 
         private readonly 譜面スクロール速度 _譜面スクロール速度;
 

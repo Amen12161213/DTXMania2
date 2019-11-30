@@ -70,11 +70,17 @@ namespace DTXMania2.演奏
             var userConfig = Global.App.ログオン中のユーザ;
 
             this._背景画像 = new 画像( @"$(Images)\PlayStage\Background.png" );
-            this._レーンフレーム = new レーンフレーム();
             this._曲名パネル = new 曲名パネル();
+            BASIC.レーンフレーム.レーン配置を設定する( userConfig.レーン配置 );
+            this._レーンフレームBASIC = new BASIC.レーンフレーム();
+            this._レーンフレーム = new レーンフレーム();
             this._ドラムキットとヒットバー = new ドラムキットとヒットバー();
             this._レーンフラッシュ = new レーンフラッシュ();
             this._ドラムチップ = new ドラムチップ();
+            this._ドラムパッドBASIC = new BASIC.ドラムパッド();
+            this._ヒットバーBASIC = new BASIC.ヒットバー();
+            this._レーンフラッシュBASIC = new BASIC.レーンフラッシュ();
+            this._ドラムチップBASIC = new BASIC.ドラムチップ();
             this._判定文字列 = new 判定文字列();
             this._チップ光 = new チップ光();
             this._左サイドクリアパネル = new 左サイドクリアパネル();
@@ -98,6 +104,15 @@ namespace DTXMania2.演奏
             this._フェードインカウンタ = new Counter( 0, 100, 10 );
 
             this.成績 = new 成績();
+
+            // 191129 OrzHighlight 何故かここでもっかい反映させないとライドの表示レーンが間違える
+            #region " ログオン中ユーザ関連のチッププロパティを反映する"
+            //----------------
+            userConfig.ドラムチッププロパティリスト.反映する(userConfig.演奏モード);
+            userConfig.ドラムチッププロパティリスト.反映する(userConfig.表示レーンの左右);
+            userConfig.ドラムチッププロパティリスト.反映する(userConfig.シンバルフリーモードである ? 入力グループプリセット種別.シンバルフリー : 入力グループプリセット種別.基本形);
+            //----------------
+            #endregion
 
             #region " スコアに依存するデータを初期化する。"
             //----------------
@@ -187,11 +202,16 @@ namespace DTXMania2.演奏
             this._左サイドクリアパネル.Dispose();
             this._チップ光.Dispose();
             this._判定文字列.Dispose();
+            this._ドラムチップBASIC.Dispose();
+            this._レーンフラッシュBASIC.Dispose();
+            this._ヒットバーBASIC.Dispose();
+            this._ドラムパッドBASIC.Dispose();
             this._ドラムチップ.Dispose();
             this._レーンフラッシュ.Dispose();
             this._ドラムキットとヒットバー.Dispose();
-            this._曲名パネル.Dispose();
             this._レーンフレーム.Dispose();
+            this._レーンフレームBASIC.Dispose();
+            this._曲名パネル.Dispose();
             this._背景画像.Dispose();
         }
 
@@ -513,14 +533,22 @@ namespace DTXMania2.演奏
                                         continue;
 
                                     var プロパティs = userConfig.ドラムチッププロパティリスト.チップtoプロパティ.Where( ( kvp ) => ( kvp.Value.ドラム入力種別 == 入力.Type ) );
-                                    
-                                    if( 0 < プロパティs.Count() )    // 1つだけのはずだが念のため。
+
+                                    if (0 < プロパティs.Count())    // 1つだけのはずだが念のため。
                                     {
                                         var laneType = プロパティs.First().Value.表示レーン種別;
 
-                                        // ヒットしてようがしてまいが起こすアクション。
-                                        this._ドラムキットとヒットバー.ヒットアニメ開始( laneType );
-                                        this._レーンフラッシュ.開始する( laneType );
+                                        if (userConfig.演奏モード < PlayMode.EXPERT)
+                                        {
+                                            this._ドラムパッドBASIC.ヒットする(laneType);
+                                            this._レーンフラッシュBASIC.開始する(laneType);
+                                        }
+                                        if (userConfig.演奏モード == PlayMode.EXPERT)
+                                        {
+                                            // ヒットしてようがしてまいが起こすアクション。
+                                            this._ドラムキットとヒットバー.ヒットアニメ開始(laneType);
+                                            this._レーンフラッシュ.開始する(laneType);
+                                        }
                                     }
                                 }
                                 //----------------
@@ -741,7 +769,10 @@ namespace DTXMania2.演奏
 
                         #region " レーンフレーム "
                         //----------------
-                        this._レーンフレーム.描画する( dc, userConfig.レーンの透明度, レーンラインを描画する: ( userConfig.ダーク == ダーク種別.OFF ) ? true : false );
+                        if (userConfig.演奏モード < PlayMode.EXPERT)
+                            this._レーンフレームBASIC.描画する(dc, userConfig.レーンの透明度, レーンラインを描画する: (userConfig.ダーク == ダーク種別.OFF) ? true : false);
+                        if (userConfig.演奏モード == PlayMode.EXPERT)
+                            this._レーンフレーム.描画する( dc, userConfig.レーンの透明度, レーンラインを描画する: ( userConfig.ダーク == ダーク種別.OFF ) ? true : false );
                         //----------------
                         #endregion
 
@@ -780,23 +811,31 @@ namespace DTXMania2.演奏
                         //----------------
                         #endregion
 
-                        #region " 曲目パネル "
+                        #region " 曲名パネル "
                         //----------------
-                        if( userConfig.ダーク == ダーク種別.OFF )
+                        if ( userConfig.ダーク == ダーク種別.OFF )
                             this._曲名パネル.描画する( dc );
                         //----------------
                         #endregion
 
-                        #region " ヒットバー "
+                        #region " ドラムパッドとヒットバー "
                         //----------------
-                        if( userConfig.ダーク != ダーク種別.FULL )
-                            this._ドラムキットとヒットバー.ヒットバーを進行描画する();
+                        if( userConfig.ダーク != ダーク種別.FULL)
+                        {
+                            if (userConfig.演奏モード < PlayMode.EXPERT)
+                            {
+                                this._ドラムパッドBASIC.進行描画する();
+                                this._ヒットバーBASIC.描画する();
+                            }
+                            if (userConfig.演奏モード == PlayMode.EXPERT)
+                                this._ドラムキットとヒットバー.ヒットバーを進行描画する();
+                        }
                         //----------------
                         #endregion
 
                         #region " ドラムキット "
                         //----------------
-                        if( userConfig.ダーク == ダーク種別.OFF )
+                        if( userConfig.ダーク == ダーク種別.OFF && userConfig.演奏モード == PlayMode.EXPERT )
                             this._ドラムキットとヒットバー.ドラムキットを進行描画する();
                         //----------------
                         #endregion
@@ -933,13 +972,19 @@ namespace DTXMania2.演奏
 
                         #region " レーンフレーム "
                         //----------------
-                        this._レーンフレーム.描画する( dc, userConfig.レーンの透明度, レーンラインを描画する: ( userConfig.ダーク == ダーク種別.OFF ) ? true : false );
+                        if (userConfig.演奏モード < PlayMode.EXPERT)
+                            this._レーンフレームBASIC.描画する(dc, userConfig.レーンの透明度, レーンラインを描画する: (userConfig.ダーク == ダーク種別.OFF) ? true : false);
+                        if (userConfig.演奏モード == PlayMode.EXPERT)
+                            this._レーンフレーム.描画する(dc, userConfig.レーンの透明度, レーンラインを描画する: (userConfig.ダーク == ダーク種別.OFF) ? true : false);
                         //----------------
                         #endregion
 
                         #region " レーンフラッシュ  "
                         //----------------
-                        this._レーンフラッシュ.進行描画する();
+                        if (userConfig.演奏モード < PlayMode.EXPERT)
+                            this._レーンフラッシュBASIC.進行描画する();
+                        if (userConfig.演奏モード == PlayMode.EXPERT)
+                            this._レーンフラッシュ.進行描画する();
                         //----------------
                         #endregion
 
@@ -995,17 +1040,24 @@ namespace DTXMania2.演奏
                         //----------------
                         #endregion
 
-                        #region " ヒットバー "
+                        #region " ドラムパッドとヒットバー "
                         //----------------
-                        // ヒットバー
-                        if( userConfig.ダーク != ダーク種別.FULL )
-                            this._ドラムキットとヒットバー.ヒットバーを進行描画する();
+                        if (userConfig.ダーク != ダーク種別.FULL)
+                        {
+                            if (userConfig.演奏モード < PlayMode.EXPERT)
+                            {
+                                this._ドラムパッドBASIC.進行描画する();
+                                this._ヒットバーBASIC.描画する();
+                            }
+                            if (userConfig.演奏モード == PlayMode.EXPERT)
+                                this._ドラムキットとヒットバー.ヒットバーを進行描画する();
+                        }
                         //----------------
                         #endregion
 
                         #region " ドラムキット "
                         //----------------
-                        if( userConfig.ダーク == ダーク種別.OFF )
+                        if (userConfig.ダーク == ダーク種別.OFF && userConfig.演奏モード == PlayMode.EXPERT)
                             this._ドラムキットとヒットバー.ドラムキットを進行描画する();
                         //----------------
                         #endregion
@@ -1014,12 +1066,22 @@ namespace DTXMania2.演奏
                         //----------------
                         this._描画範囲内のすべてのチップに対して( 演奏時刻sec, ( チップ chip, int index, double ヒット判定バーと描画との時間sec, double ヒット判定バーと発声との時間sec, double ヒット判定バーとの距離dpx ) => {
 
-                            // クリア判定はこの中。
-                            if( this._ドラムチップ.進行描画する( ref this._描画開始チップ番号, this._チップの演奏状態[ chip ], chip, index, ヒット判定バーとの距離dpx ) )
+                            if (userConfig.演奏モード < PlayMode.EXPERT)
                             {
-                                this.現在のフェーズ = フェーズ.クリア;
+                                // クリア判定はこの中。
+                                if (this._ドラムチップBASIC.進行描画する(ref this._描画開始チップ番号, this._チップの演奏状態[chip], chip, index, ヒット判定バーとの距離dpx))
+                                {
+                                    this.現在のフェーズ = フェーズ.クリア;
+                                }
                             }
-
+                            if (userConfig.演奏モード == PlayMode.EXPERT)
+                            {
+                                // クリア判定はこの中。
+                                if (this._ドラムチップ.進行描画する(ref this._描画開始チップ番号, this._チップの演奏状態[chip], chip, index, ヒット判定バーとの距離dpx))
+                                {
+                                    this.現在のフェーズ = フェーズ.クリア;
+                                }
+                            }
                         } );
                         //----------------
                         #endregion
@@ -1116,6 +1178,14 @@ namespace DTXMania2.演奏
 
         private readonly ドラムチップ _ドラムチップ;
 
+        private readonly BASIC.レーンフレーム _レーンフレームBASIC;
+
+        private readonly BASIC.ドラムパッド _ドラムパッドBASIC;
+
+        private readonly BASIC.ヒットバー _ヒットバーBASIC;
+
+        private readonly BASIC.ドラムチップ _ドラムチップBASIC;
+
         private readonly 譜面スクロール速度 _譜面スクロール速度;
 
         private readonly エキサイトゲージ _エキサイトゲージ;
@@ -1171,6 +1241,8 @@ namespace DTXMania2.演奏
 
 
         private readonly レーンフラッシュ _レーンフラッシュ;
+
+        private readonly BASIC.レーンフラッシュ _レーンフラッシュBASIC;
 
         private readonly 判定文字列 _判定文字列;
 
@@ -1474,11 +1546,28 @@ namespace DTXMania2.演奏
 
                 if( judge != 判定種別.MISS )
                 {
+                    // 判定処理(1) チップ光アニメ開始
                     this._チップ光.表示を開始する( 対応表.表示レーン種別 );
-                    this._レーンフラッシュ.開始する( 対応表.表示レーン種別 );
+
+                    if( userConfig.演奏モード < PlayMode.EXPERT)
+                    {
+                        // 判定処理(2) BASIC用ドラムバッドのヒットアニメ開始
+                        this._ドラムパッドBASIC.ヒットする(対応表.表示レーン種別);
+
+                        // 判定処理(3-BASIC) BASIC用レーンフラッシュアニメ開始
+                        this._レーンフラッシュBASIC.開始する(対応表.表示レーン種別);
+                    }
+
+                    if (userConfig.演奏モード == PlayMode.EXPERT)
+                    {
+                        // 判定処理(3-EXPERT) EXPERT用レーンフラッシュアニメ開始
+                        this._レーンフラッシュ.開始する(対応表.表示レーン種別);
+                    }
                 }
+                // 判定処理(4) 判定文字列アニメ開始
                 this._判定文字列.表示を開始する( 対応表.表示レーン種別, judge, 入力とチップとの間隔sec );
 
+                // 判定処理(5) 成績更新
                 this.成績.成績を更新する( judge, userConfig.AutoPlay[ 対応表.AutoPlay種別 ] );
                 //----------------
                 #endregion

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,183 +13,183 @@ namespace DTXMania2
 {
     static class Program
     {
-        public readonly static string _ƒrƒ…ƒA[—pƒpƒCƒvƒ‰ƒCƒ“–¼ = "DTXMania2Viewer";
+        public readonly static string _ãƒ“ãƒ¥ã‚¢ãƒ¼ç”¨ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³å = "DTXMania2Viewer";
 
         [STAThread]
-        static void Main( string[] args )
+        static void Main(string[] args)
         {
             try
             {
-                // ‰Šú‰»
+                // åˆæœŸåŒ–
 
-                timeBeginPeriod( 1 );
-                Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );    // .NET Core ‚Å Shift-JIS ‘¼‚ğ—˜—p‰Â”\‚É‚·‚é
+                timeBeginPeriod(1);
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);    // .NET Core ã§ Shift-JIS ä»–ã‚’åˆ©ç”¨å¯èƒ½ã«ã™ã‚‹
 
-                #region " ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚ğ‰ğÍ‚·‚éB"
+                #region " ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã‚’è§£æã™ã‚‹ã€‚"
                 //----------------
                 Global.Options = new CommandLineOptions();
 
-                if( !Global.Options.‰ğÍ‚·‚é( args ) ) // ‰ğÍ‚É¸”s‚·‚ê‚Îfalse
+                if (!Global.Options.è§£æã™ã‚‹(args)) // è§£æã«å¤±æ•—ã™ã‚Œã°false
                 {
-                    // —˜—p–@‚ğ•\¦‚µ‚ÄI—¹B
+                    // åˆ©ç”¨æ³•ã‚’è¡¨ç¤ºã—ã¦çµ‚äº†ã€‚
 
-                    Trace.WriteLine( Global.Options.Usage );             // Trace‚Æ
-                    using( var console = new Console() )
-                        console.Out?.WriteLine( Global.Options.Usage );  // •W€o—Í‚Ì—¼•û‚Ö
+                    Trace.WriteLine(Global.Options.Usage);             // Traceã¨
+                    using (var console = new Console())
+                        console.Out?.WriteLine(Global.Options.Usage);  // æ¨™æº–å‡ºåŠ›ã®ä¸¡æ–¹ã¸
                     return;
                 }
                 //----------------
                 #endregion
 
-                #region " “ñd‹N“®ƒ`ƒFƒbƒN‚Ü‚½‚ÍƒIƒvƒVƒ‡ƒ“‘—MB"
+                #region " äºŒé‡èµ·å‹•ãƒã‚§ãƒƒã‚¯ã¾ãŸã¯ã‚ªãƒ—ã‚·ãƒ§ãƒ³é€ä¿¡ã€‚"
                 //----------------
-                using( var pipeToViewer = new NamedPipeClientStream( ".", _ƒrƒ…ƒA[—pƒpƒCƒvƒ‰ƒCƒ“–¼, PipeDirection.Out ) )
+                using (var pipeToViewer = new NamedPipeClientStream(".", _ãƒ“ãƒ¥ã‚¢ãƒ¼ç”¨ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³å, PipeDirection.Out))
                 {
                     try
                     {
-                        // ƒpƒCƒvƒ‰ƒCƒ“ƒT[ƒo‚Ö‚ÌÚ‘±‚ğ‚İ‚éB
-                        pipeToViewer.Connect( 100 );
+                        // ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚µãƒ¼ãƒã¸ã®æ¥ç¶šã‚’è©¦ã¿ã‚‹ã€‚
+                        pipeToViewer.Connect(100);
 
-                        // (A) ƒT[ƒrƒX‚ª—§‚¿ã‚ª‚Á‚Ä‚¢‚é
-                        if( Global.Options.ƒrƒ…ƒA[ƒ‚[ƒh‚Å‚ ‚é )
+                        // (A) ã‚µãƒ¼ãƒ“ã‚¹ãŒç«‹ã¡ä¸ŠãŒã£ã¦ã„ã‚‹
+                        if (Global.Options.ãƒ“ãƒ¥ã‚¢ãƒ¼ãƒ¢ãƒ¼ãƒ‰ã§ã‚ã‚‹)
                         {
-                            #region " (A-a) ƒIƒvƒVƒ‡ƒ““à—e‚ğƒT[ƒo‚Ö‘—M‚µ‚Ä³íI—¹B"
+                            #region " (A-a) ã‚ªãƒ—ã‚·ãƒ§ãƒ³å†…å®¹ã‚’ã‚µãƒ¼ãƒã¸é€ä¿¡ã—ã¦æ­£å¸¸çµ‚äº†ã€‚"
                             //----------------
-                            var ss = new StreamStringForNamedPipe( pipeToViewer );
-                            var yamlText = Global.Options.ToYaml(); // YAML‰»
-                            ss.WriteString( yamlText );
+                            var ss = new StreamStringForNamedPipe(pipeToViewer);
+                            var yamlText = Global.Options.ToYaml(); // YAMLåŒ–
+                            ss.WriteString(yamlText);
                             return;
                             //----------------
                             #endregion
                         }
                         else
                         {
-                            #region " (A-b) “ñd‹N“®‚Æ‚µ‚ÄƒGƒ‰[I—¹B"
+                            #region " (A-b) äºŒé‡èµ·å‹•ã¨ã—ã¦ã‚¨ãƒ©ãƒ¼çµ‚äº†ã€‚"
                             //----------------
-                            var ss = new StreamStringForNamedPipe( pipeToViewer );
-                            ss.WriteString( "ping" );
+                            var ss = new StreamStringForNamedPipe(pipeToViewer);
+                            ss.WriteString("ping");
 
-                            var msg = "“ñd‹N“®‚Í‚Å‚«‚Ü‚¹‚ñB";
-                            Trace.WriteLine( msg );                     // Trace‚Æ
-                            MessageBox.Show( msg, "DTXMania2 error" );  // ƒ_ƒCƒAƒƒO•\¦B
+                            var msg = "äºŒé‡èµ·å‹•ã¯ã§ãã¾ã›ã‚“ã€‚";
+                            Trace.WriteLine(msg);                     // Traceã¨
+                            MessageBox.Show(msg, "DTXMania2 error");  // ãƒ€ã‚¤ã‚¢ãƒ­ã‚°è¡¨ç¤ºã€‚
                             return;
                             //----------------
                             #endregion
                         }
                     }
-                    catch( TimeoutException )
+                    catch (TimeoutException)
                     {
-                        // (B) ƒT[ƒrƒX‚ª—§‚¿ã‚ª‚Á‚Ä‚¢‚È‚¢ ¨ ‚»‚Ì‚Ü‚Ü‹N“®
+                        // (B) ã‚µãƒ¼ãƒ“ã‚¹ãŒç«‹ã¡ä¸ŠãŒã£ã¦ã„ãªã„ â†’ ãã®ã¾ã¾èµ·å‹•
                     }
                 }
                 //----------------
                 #endregion
 
-                #region " AppData/DTXMania2 ƒtƒHƒ‹ƒ_‚ª‚È‚¯‚ê‚Îì¬‚·‚éB"
+                #region " AppData/DTXMania2 ãƒ•ã‚©ãƒ«ãƒ€ãŒãªã‘ã‚Œã°ä½œæˆã™ã‚‹ã€‚"
                 //----------------
-                //var AppDataƒtƒHƒ‹ƒ_–¼ = Application.UserAppDataPath;  // %USERPROFILE%/AppData/<‰ïĞ–¼>/DTXMania2/
-                var AppDataƒtƒHƒ‹ƒ_–¼ = Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create ), "DTXMania2" ); // %USERPROFILE%/AppData/DTXMania2/
+                //var AppDataãƒ•ã‚©ãƒ«ãƒ€å = Application.UserAppDataPath;  // %USERPROFILE%/AppData/<ä¼šç¤¾å>/DTXMania2/
+                var AppDataãƒ•ã‚©ãƒ«ãƒ€å = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create), "DTXMania2"); // %USERPROFILE%/AppData/DTXMania2/
 
-                if( !( Directory.Exists( AppDataƒtƒHƒ‹ƒ_–¼ ) ) )
-                    Directory.CreateDirectory( AppDataƒtƒHƒ‹ƒ_–¼ );
+                if (!(Directory.Exists(AppDataãƒ•ã‚©ãƒ«ãƒ€å)))
+                    Directory.CreateDirectory(AppDataãƒ•ã‚©ãƒ«ãƒ€å);
                 //----------------
                 #endregion
 
-                #region " ƒƒOƒtƒ@ƒCƒ‹‚Ö‚ÌƒƒO‚Ì•¡»o—ÍŠJnB"
+                #region " ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ­ã‚°ã®è¤‡è£½å‡ºåŠ›é–‹å§‹ã€‚"
                 //----------------
                 {
-                    const int ƒƒOƒtƒ@ƒCƒ‹‚ÌÅ‘å•Û‘¶“ú” = 30;
+                    const int ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ€å¤§ä¿å­˜æ—¥æ•° = 30;
                     Trace.AutoFlush = true;
 
-                    var ƒƒOƒtƒ@ƒCƒ‹–¼ = Log.ƒƒOƒtƒ@ƒCƒ‹–¼‚ğ¶¬‚·‚é( Path.Combine( AppDataƒtƒHƒ‹ƒ_–¼, "Logs" ), "Log.", TimeSpan.FromDays( ƒƒOƒtƒ@ƒCƒ‹‚ÌÅ‘å•Û‘¶“ú” ) );
+                    var ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«å = Log.ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«åã‚’ç”Ÿæˆã™ã‚‹(Path.Combine(AppDataãƒ•ã‚©ãƒ«ãƒ€å, "Logs"), "Log.", TimeSpan.FromDays(ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ€å¤§ä¿å­˜æ—¥æ•°));
 
-                    // ƒƒOƒtƒ@ƒCƒ‹‚ğTraceƒŠƒXƒi‚Æ‚µ‚Ä’Ç‰ÁB
-                    // ˆÈ~ATracei‚È‚ç‚Ñ‚ÉLogƒNƒ‰ƒXj‚É‚æ‚éo—Í‚ÍA‚±‚ÌƒŠƒXƒiiƒƒOƒtƒ@ƒCƒ‹j‚É‚ào—Í‚³‚ê‚éB
-                    Trace.Listeners.Add( new TraceLogListener( new StreamWriter( ƒƒOƒtƒ@ƒCƒ‹–¼, false, Encoding.GetEncoding( "utf-8" ) ) ) );
+                    // ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã‚’Traceãƒªã‚¹ãƒŠã¨ã—ã¦è¿½åŠ ã€‚
+                    // ä»¥é™ã€Traceï¼ˆãªã‚‰ã³ã«Logã‚¯ãƒ©ã‚¹ï¼‰ã«ã‚ˆã‚‹å‡ºåŠ›ã¯ã€ã“ã®ãƒªã‚¹ãƒŠï¼ˆï¼ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ï¼‰ã«ã‚‚å‡ºåŠ›ã•ã‚Œã‚‹ã€‚
+                    Trace.Listeners.Add(new TraceLogListener(new StreamWriter(ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«å, false, Encoding.GetEncoding("utf-8"))));
 
-                    Log.Œ»İ‚ÌƒXƒŒƒbƒh‚É–¼‘O‚ğ‚Â‚¯‚é( "Form" );
+                    Log.ç¾åœ¨ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã«åå‰ã‚’ã¤ã‘ã‚‹("Form");
                 }
                 //----------------
                 #endregion
 
-                #region " ƒ^ƒCƒgƒ‹A’˜ìŒ AƒVƒXƒeƒ€î•ñ‚ğƒƒOo—Í‚·‚éB"
+                #region " ã‚¿ã‚¤ãƒˆãƒ«ã€è‘—ä½œæ¨©ã€ã‚·ã‚¹ãƒ†ãƒ æƒ…å ±ã‚’ãƒ­ã‚°å‡ºåŠ›ã™ã‚‹ã€‚"
                 //----------------
-                Log.WriteLine( $"{Application.ProductName} Release {int.Parse( Application.ProductVersion.Split( '.' ).ElementAt( 0 ) ):000}" );
+                Log.WriteLine($"{Application.ProductName} Release {int.Parse(Application.ProductVersion.Split('.').ElementAt(0)):000}");
 
-                var copyrights = (AssemblyCopyrightAttribute[]) Assembly.GetExecutingAssembly().GetCustomAttributes( typeof( AssemblyCopyrightAttribute ), false );
-                Log.WriteLine( $"{copyrights[ 0 ].Copyright}" );
-                Log.WriteLine( "" );
+                var copyrights = (AssemblyCopyrightAttribute[])Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+                Log.WriteLine($"{copyrights[0].Copyright}");
+                Log.WriteLine("");
 
-                Log.ƒVƒXƒeƒ€î•ñ‚ğƒƒOo—Í‚·‚é();
-                Log.WriteLine( "" );
+                Log.ã‚·ã‚¹ãƒ†ãƒ æƒ…å ±ã‚’ãƒ­ã‚°å‡ºåŠ›ã™ã‚‹();
+                Log.WriteLine("");
                 //----------------
                 #endregion
 
-                #region " ƒtƒHƒ‹ƒ_•Ï”‚ğİ’è‚·‚éB"
+                #region " ãƒ•ã‚©ãƒ«ãƒ€å¤‰æ•°ã‚’è¨­å®šã™ã‚‹ã€‚"
                 //----------------
                 {
-                    var exePath = Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ) ?? "";
+                    var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "";
 
-                    Folder.ƒtƒHƒ‹ƒ_•Ï”‚ğ’Ç‰Á‚Ü‚½‚ÍXV‚·‚é( "Exe", exePath );
-                    Folder.ƒtƒHƒ‹ƒ_•Ï”‚ğ’Ç‰Á‚Ü‚½‚ÍXV‚·‚é( "ResourcesRoot", Path.Combine( exePath, "Resources" ) );
-                    Folder.ƒtƒHƒ‹ƒ_•Ï”‚ğ’Ç‰Á‚Ü‚½‚ÍXV‚·‚é( "DrumSounds", Path.Combine( exePath, @"Resources\Default\DrumSounds" ) );      // Skin.yaml ‚É‚æ‚è•ÏX‚³‚ê‚é
-                    Folder.ƒtƒHƒ‹ƒ_•Ï”‚ğ’Ç‰Á‚Ü‚½‚ÍXV‚·‚é( "SystemSounds", Path.Combine( exePath, @"Resources\Default\SystemSounds" ) );  // Skin.yaml ‚É‚æ‚è•ÏX‚³‚ê‚é
-                    Folder.ƒtƒHƒ‹ƒ_•Ï”‚ğ’Ç‰Á‚Ü‚½‚ÍXV‚·‚é( "Images", Path.Combine( exePath, @"Resources\Default\Images" ) );              // Skin.yaml ‚É‚æ‚è•ÏX‚³‚ê‚é
-                    Folder.ƒtƒHƒ‹ƒ_•Ï”‚ğ’Ç‰Á‚Ü‚½‚ÍXV‚·‚é( "AppData", AppDataƒtƒHƒ‹ƒ_–¼ );
-                    Folder.ƒtƒHƒ‹ƒ_•Ï”‚ğ’Ç‰Á‚Ü‚½‚ÍXV‚·‚é( "UserProfile", Environment.GetFolderPath( Environment.SpecialFolder.UserProfile ) );
+                    Folder.ãƒ•ã‚©ãƒ«ãƒ€å¤‰æ•°ã‚’è¿½åŠ ã¾ãŸã¯æ›´æ–°ã™ã‚‹("Exe", exePath);
+                    Folder.ãƒ•ã‚©ãƒ«ãƒ€å¤‰æ•°ã‚’è¿½åŠ ã¾ãŸã¯æ›´æ–°ã™ã‚‹("ResourcesRoot", Path.Combine(exePath, "Resources"));
+                    Folder.ãƒ•ã‚©ãƒ«ãƒ€å¤‰æ•°ã‚’è¿½åŠ ã¾ãŸã¯æ›´æ–°ã™ã‚‹("DrumSounds", Path.Combine(exePath, @"Resources\Default\DrumSounds"));      // Skin.yaml ã«ã‚ˆã‚Šå¤‰æ›´ã•ã‚Œã‚‹
+                    Folder.ãƒ•ã‚©ãƒ«ãƒ€å¤‰æ•°ã‚’è¿½åŠ ã¾ãŸã¯æ›´æ–°ã™ã‚‹("SystemSounds", Path.Combine(exePath, @"Resources\Default\SystemSounds"));  // Skin.yaml ã«ã‚ˆã‚Šå¤‰æ›´ã•ã‚Œã‚‹
+                    Folder.ãƒ•ã‚©ãƒ«ãƒ€å¤‰æ•°ã‚’è¿½åŠ ã¾ãŸã¯æ›´æ–°ã™ã‚‹("Images", Path.Combine(exePath, @"Resources\Default\Images"));              // Skin.yaml ã«ã‚ˆã‚Šå¤‰æ›´ã•ã‚Œã‚‹
+                    Folder.ãƒ•ã‚©ãƒ«ãƒ€å¤‰æ•°ã‚’è¿½åŠ ã¾ãŸã¯æ›´æ–°ã™ã‚‹("AppData", AppDataãƒ•ã‚©ãƒ«ãƒ€å);
+                    Folder.ãƒ•ã‚©ãƒ«ãƒ€å¤‰æ•°ã‚’è¿½åŠ ã¾ãŸã¯æ›´æ–°ã™ã‚‹("UserProfile", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
                 }
                 //----------------
                 #endregion
 
 
-                // ƒAƒvƒŠ‹N“®
+                // ã‚¢ãƒ—ãƒªèµ·å‹•
 
-                Application.SetHighDpiMode( HighDpiMode.SystemAware );
+                Application.SetHighDpiMode(HighDpiMode.SystemAware);
                 Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault( false );
+                Application.SetCompatibleTextRenderingDefault(false);
                 AppForm appForm;
                 do
                 {
                     appForm = new AppForm();
-                    Application.Run( appForm );
+                    Application.Run(appForm);
                     appForm.Dispose();
-                } while( appForm.Ä‹N“®‚ª•K—v );  // –ß‚Á‚Ä‚«‚½ÛAÄ‹N“®ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚½‚ç‚±‚±‚ÅƒAƒvƒŠ‚ğÄ‹N“®‚·‚éB
+                } while (appForm.å†èµ·å‹•ãŒå¿…è¦);  // æˆ»ã£ã¦ããŸéš›ã€å†èµ·å‹•ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãŸã‚‰ã“ã“ã§ã‚¢ãƒ—ãƒªã‚’å†èµ·å‹•ã™ã‚‹ã€‚
 
-                #region " ”õl: Ä‹N“®‚É‚Â‚¢‚Ä "
+                #region " å‚™è€ƒ: å†èµ·å‹•ã«ã¤ã„ã¦ "
                 //----------------
-                // .NET Core 3 ‚Å Application.Restart() ‚·‚é‚ÆAu‹N“®‚µ‚½ƒvƒƒZƒX‚¶‚á‚È‚¢‚Ì‚Å‹p‰ºv‚ÆŒ¾‚í‚ê‚éB
-                // ‚¨‚»‚ç‚­‹N“®ƒvƒƒZƒX‚ª dotnet ‚Å‚ ‚é‚½‚ßH
-                // @
-                // if( appForm.Ä‹N“®‚ª•K—v )
+                // .NET Core 3 ã§ Application.Restart() ã™ã‚‹ã¨ã€ã€Œèµ·å‹•ã—ãŸãƒ—ãƒ­ã‚»ã‚¹ã˜ã‚ƒãªã„ã®ã§å´ä¸‹ã€ã¨è¨€ã‚ã‚Œã‚‹ã€‚
+                // ãŠãã‚‰ãèµ·å‹•ãƒ—ãƒ­ã‚»ã‚¹ãŒ dotnet ã§ã‚ã‚‹ãŸã‚ï¼Ÿ
+                // ã€€
+                // if( appForm.å†èµ·å‹•ãŒå¿…è¦ )
                 // {
-                //     // ’ˆÓFVisual Sutdio ‚ÌƒfƒoƒbƒO„—áŠOİ’è‚Å Common Language Runtime Exceptions ‚Éƒ`ƒFƒbƒN‚ğ“ü‚ê‚Ä‚¢‚é‚ÆA
-                //     // ‚±‚±‚Å InvalidDeploymentException ‚ª”­¶‚µ‚ÄƒfƒoƒbƒK‚ªˆê’â~‚·‚é‚ªA‚±‚ê‚Íuƒtƒ@[ƒXƒgƒ`ƒƒƒ“ƒX—áŠOv‚È‚Ì‚ÅA
-                //     // ’P‚É–³‹‚·‚é‚±‚ÆB
+                //     // æ³¨æ„ï¼šVisual Sutdio ã®ãƒ‡ãƒãƒƒã‚°ï¼ä¾‹å¤–è¨­å®šã§ Common Language Runtime Exceptions ã«ãƒã‚§ãƒƒã‚¯ã‚’å…¥ã‚Œã¦ã„ã‚‹ã¨ã€
+                //     // ã“ã“ã§ InvalidDeploymentException ãŒç™ºç”Ÿã—ã¦ãƒ‡ãƒãƒƒã‚¬ãŒä¸€æ™‚åœæ­¢ã™ã‚‹ãŒã€ã“ã‚Œã¯ã€Œãƒ•ã‚¡ãƒ¼ã‚¹ãƒˆãƒãƒ£ãƒ³ã‚¹ä¾‹å¤–ã€ãªã®ã§ã€
+                //     // å˜ã«ç„¡è¦–ã™ã‚‹ã“ã¨ã€‚
                 //     Application.Restart();
                 // }
                 //----------------
                 #endregion
 
 
-                // I—¹
+                // çµ‚äº†
 
-                timeEndPeriod( 1 );
+                timeEndPeriod(1);
 
-                Log.WriteLine( "" );
-                Log.WriteLine( "—V‚ñ‚Å‚­‚ê‚Ä‚ ‚è‚ª‚Æ‚¤I" );
+                Log.WriteLine("");
+                Log.WriteLine("éŠã‚“ã§ãã‚Œã¦ã‚ã‚ŠãŒã¨ã†ï¼");
             }
 #if !DEBUG
-            // Release ‚É‚ÍA–¢ˆ—‚Ì—áŠO‚ğƒLƒƒƒbƒ`‚µ‚½‚çƒ_ƒCƒAƒƒO‚ğ•\¦‚·‚éB
+            // Release æ™‚ã«ã¯ã€æœªå‡¦ç†ã®ä¾‹å¤–ã‚’ã‚­ãƒ£ãƒƒãƒã—ãŸã‚‰ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
             catch( Exception e )
             {
                 MessageBox.Show(
-                    $"–¢ˆ—‚Ì—áŠO‚ª”­¶‚µ‚Ü‚µ‚½B\n\n" +
+                    $"æœªå‡¦ç†ã®ä¾‹å¤–ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚\n\n" +
                     $"{e.Message}\n" +
                     $"{e.StackTrace}",
                     "Exception" );
             }
 #else
-            // Debug ‚É‚ÍA–¢ˆ—‚Ì—áŠO‚ª”­o‚³‚ê‚Ä‚à–³‹BiƒfƒoƒbƒK‚ÅƒLƒƒƒbƒ`‚·‚é‚±‚Æ‚ğ‘z’èBj
+            // Debug æ™‚ã«ã¯ã€æœªå‡¦ç†ã®ä¾‹å¤–ãŒç™ºå‡ºã•ã‚Œã¦ã‚‚ç„¡è¦–ã€‚ï¼ˆãƒ‡ãƒãƒƒã‚¬ã§ã‚­ãƒ£ãƒƒãƒã™ã‚‹ã“ã¨ã‚’æƒ³å®šã€‚ï¼‰
             finally
             {
             }
@@ -198,11 +198,11 @@ namespace DTXMania2
 
         #region " Win32 "
         //----------------
-        [System.Runtime.InteropServices.DllImport( "winmm.dll" )]
-        static extern void timeBeginPeriod( uint x );
+        [System.Runtime.InteropServices.DllImport("winmm.dll")]
+        static extern void timeBeginPeriod(uint x);
 
-        [System.Runtime.InteropServices.DllImport( "winmm.dll" )]
-        static extern void timeEndPeriod( uint x );
+        [System.Runtime.InteropServices.DllImport("winmm.dll")]
+        static extern void timeEndPeriod(uint x);
         //----------------
         #endregion
     }

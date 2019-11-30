@@ -25,7 +25,7 @@ namespace DTXMania2
         {
             using var _ = new LogBlock( Log.現在のメソッド名 );
 
-            this._矢印画像 = new 画像( @"$(Images)\PadArraow.png" );
+            this._矢印画像 = new 画像( @"$(Images)\PadArrow.png" );
             this._矢印の矩形リスト = new 矩形リスト( @"$(Images)\PadArrow.yaml" );
         }
 

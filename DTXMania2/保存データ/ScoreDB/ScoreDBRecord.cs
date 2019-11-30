@@ -94,6 +94,11 @@ namespace DTXMania2
         public int TotalNotes_RightCymbal { get; set; }
 
         /// <summary>
+        ///		ライドの総ノーツ数。
+        /// </summary>
+        public int TotalNotes_Ride { get; set; }
+
+        /// <summary>
         ///		曲のプレビュー画像。
         ///		曲譜面ファイル（<see cref="ScorePath"/>）からの相対パス。
         /// </summary>
@@ -137,6 +142,7 @@ namespace DTXMania2
             this.TotalNotes_LowTom = 0;
             this.TotalNotes_FloorTom = 0;
             this.TotalNotes_RightCymbal = 0;
+            this.TotalNotes_Ride = 0;
             this.PreImage = "";
             this.Artist = "";
             this.PreSound = "";
@@ -173,6 +179,7 @@ namespace DTXMania2
             this.TotalNotes_LowTom = ノーツ数マップ[ 演奏.表示レーン種別.Tom2 ];
             this.TotalNotes_FloorTom = ノーツ数マップ[ 演奏.表示レーン種別.Tom3 ];
             this.TotalNotes_RightCymbal = ノーツ数マップ[ 演奏.表示レーン種別.RightCymbal ];
+            this.TotalNotes_Ride = ノーツ数マップ[ 演奏.表示レーン種別.Ride ];
             this.PreImage = string.IsNullOrEmpty( 譜面.プレビュー画像ファイル名 ) ? "" : 譜面.プレビュー画像ファイル名;
             this.Artist = 譜面.アーティスト名;
             this.PreSound = string.IsNullOrEmpty( 譜面.プレビュー音声ファイル名 ) ? "" : 譜面.プレビュー音声ファイル名;
@@ -199,6 +206,8 @@ namespace DTXMania2
             this.TotalNotes_HighTom = record.TotalNotes_HighTom;
             this.TotalNotes_LowTom = record.TotalNotes_LowTom;
             this.TotalNotes_FloorTom = record.TotalNotes_FloorTom;
+            this.TotalNotes_RightCymbal = record.TotalNotes_RightCymbal;
+            this.TotalNotes_Ride = record.TotalNotes_Ride;
             this.PreImage = record.PreImage;
             this.Artist = record.Artist;
             this.PreSound = record.PreSound;
@@ -230,6 +239,7 @@ namespace DTXMania2
                     case "TotalNotes_LowTom": this.TotalNotes_LowTom = record.GetInt32( i ); break;
                     case "TotalNotes_FloorTom": this.TotalNotes_FloorTom = record.GetInt32( i ); break;
                     case "TotalNotes_RightCymbal": this.TotalNotes_RightCymbal = record.GetInt32( i ); break;
+                    case "TotalNotes_Ride": this.TotalNotes_Ride = record.GetInt32( i ); break;
                     case "PreImage": this.PreImage = record.GetString( i ); break;
                     case "Artist": this.Artist = record.GetString( i ); break;
                     case "PreSound": this.PreSound = record.GetString( i ); break;
@@ -260,6 +270,7 @@ namespace DTXMania2
                 ", @TotalNotes_LowTom"+
                 ", @TotalNotes_FloorTom"+
                 ", @TotalNotes_RightCymbal"+
+                ", @TotalNotes_Ride"+
                 ", @PreImage"+
                 ", @Artist"+
                 ", @PreSound"+
@@ -282,6 +293,7 @@ namespace DTXMania2
                 new SqliteParameter( "@TotalNotes_LowTom", this.TotalNotes_LowTom ),
                 new SqliteParameter( "@TotalNotes_FloorTom", this.TotalNotes_FloorTom ),
                 new SqliteParameter( "@TotalNotes_RightCymbal", this.TotalNotes_RightCymbal ),
+                new SqliteParameter( "@TotalNotes_Ride", this.TotalNotes_Ride ),
                 new SqliteParameter( "@PreImage", this.PreImage ),
                 new SqliteParameter( "@Artist", this.Artist ),
                 new SqliteParameter( "@PreSound", this.PreSound ),
@@ -311,6 +323,7 @@ namespace DTXMania2
             @", TotalNotes_LowTom INTEGER NOT NULL" +
             @", TotalNotes_FloorTom INTEGER NOT NULL" +
             @", TotalNotes_RightCymbal INTEGER NOT NULL" +
+            @", TotalNotes_Ride INTEGER NOT NULL" +
             @", PreImage NVARCHAR" +
             @", Artist NVARCHAR" +
             @", PreSound NVARCHAR" +

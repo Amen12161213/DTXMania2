@@ -122,6 +122,7 @@ namespace DTXMania2
                     AutoPlay_LowTom = 1,
                     AutoPlay_FloorTom = 1,
                     AutoPlay_RightCymbal = 1,
+                    AutoPlay_Ride = 1,
                     // 他は既定値
                 };
                 autoPlayer.保存する();

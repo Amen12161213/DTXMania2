@@ -39,6 +39,12 @@ namespace DTXMania2
 
         public 演奏.ドラムチッププロパティリスト ドラムチッププロパティリスト { get; protected set; }
 
+        public 演奏.PlayMode 演奏モード
+        {
+            get => (演奏.PlayMode)this._UserConfig.PlayMode;
+            set => this._UserConfig.PlayMode = (int)value;
+        }
+
         public 演奏.表示レーンの左右 表示レーンの左右
         {
             get
@@ -61,6 +67,12 @@ namespace DTXMania2
         {
             get => ( 0 != this._UserConfig.DrumSound );
             set => this._UserConfig.DrumSound = value ? 1 : 0;
+        }
+
+        public string レーン配置
+        {
+            get => this._UserConfig.LaneType;
+            set => this._UserConfig.LaneType = value;
         }
 
         public int レーンの透明度
@@ -140,6 +152,7 @@ namespace DTXMania2
                 { 演奏.AutoPlay種別.Tom1, false },
                 { 演奏.AutoPlay種別.Tom2, false },
                 { 演奏.AutoPlay種別.Tom3, false },
+                { 演奏.AutoPlay種別.Ride, false },
                 { 演奏.AutoPlay種別.RightCrash, false },
             };
             this.最大ヒット距離sec = new Dictionary<演奏.判定種別, double>() {
@@ -149,6 +162,7 @@ namespace DTXMania2
                 { 演奏.判定種別.OK, 0.117 },
             };
             this.ドラムチッププロパティリスト = new 演奏.ドラムチッププロパティリスト(
+                演奏.PlayMode.BASIC,
                 new 演奏.表示レーンの左右() { 
                     Chinaは左 = false,
                     Rideは左 = false, 
@@ -192,6 +206,7 @@ namespace DTXMania2
                 { 演奏.AutoPlay種別.Tom1, ( this._UserConfig.AutoPlay_HighTom != 0 ) },
                 { 演奏.AutoPlay種別.Tom2, ( this._UserConfig.AutoPlay_LowTom != 0 ) },
                 { 演奏.AutoPlay種別.Tom3, ( this._UserConfig.AutoPlay_FloorTom != 0 ) },
+                { 演奏.AutoPlay種別.Ride, ( this._UserConfig.AutoPlay_Ride != 0 ) },
                 { 演奏.AutoPlay種別.RightCrash, ( this._UserConfig.AutoPlay_RightCymbal != 0 ) },
             };
 
@@ -202,6 +217,7 @@ namespace DTXMania2
                 { 演奏.判定種別.OK, this._UserConfig.MaxRange_Ok },
             };
 
+            this.ドラムチッププロパティリスト.反映する( this.演奏モード );
             this.ドラムチッププロパティリスト.反映する( this.表示レーンの左右 );
             this.ドラムチッププロパティリスト.反映する( ( this.シンバルフリーモードである ) ? 演奏.入力グループプリセット種別.シンバルフリー : 演奏.入力グループプリセット種別.基本形 );
         }
@@ -216,6 +232,7 @@ namespace DTXMania2
             this._UserConfig.AutoPlay_HighTom = this.AutoPlay[ 演奏.AutoPlay種別.Tom1 ] ? 1 : 0;
             this._UserConfig.AutoPlay_LowTom = this.AutoPlay[ 演奏.AutoPlay種別.Tom2 ] ? 1 : 0;
             this._UserConfig.AutoPlay_FloorTom = this.AutoPlay[ 演奏.AutoPlay種別.Tom3 ] ? 1 : 0;
+            this._UserConfig.AutoPlay_Ride = this.AutoPlay[ 演奏.AutoPlay種別.Ride ] ? 1 : 0;
             this._UserConfig.AutoPlay_RightCymbal = this.AutoPlay[ 演奏.AutoPlay種別.RightCrash ] ? 1 : 0;
 
             this._UserConfig.MaxRange_Perfect = this.最大ヒット距離sec[ 演奏.判定種別.PERFECT ];

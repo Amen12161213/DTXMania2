@@ -30,6 +30,7 @@ namespace DTXMania2.演奏
                 { 表示レーン種別.Bass,        new Counter() },
                 { 表示レーン種別.Tom2,        new Counter() },
                 { 表示レーン種別.Tom3,        new Counter() },
+                { 表示レーン種別.Ride,        new Counter() },
                 { 表示レーン種別.RightCymbal, new Counter() },
             };
         }

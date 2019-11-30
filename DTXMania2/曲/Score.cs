@@ -130,6 +130,7 @@ namespace DTXMania2.曲
                             [ 表示レーン種別.Tom2 ] = this.譜面.TotalNotes_LowTom,
                             [ 表示レーン種別.Tom3 ] = this.譜面.TotalNotes_FloorTom,
                             [ 表示レーン種別.RightCymbal ] = this.譜面.TotalNotes_RightCymbal,
+                            [ 表示レーン種別.Ride ] = this.譜面.TotalNotes_Ride,
                         };
                     }
                     //----------------

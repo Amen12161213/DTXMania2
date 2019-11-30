@@ -32,7 +32,8 @@ namespace DTXMania2.選曲
                 { 表示レーン種別.Bass,         new SolidColorBrush( dc, new Color4( 0xffff819b ) ) },
                 { 表示レーン種別.Tom2,         new SolidColorBrush( dc, new Color4( 0xff0000ff ) ) },
                 { 表示レーン種別.Tom3,         new SolidColorBrush( dc, new Color4( 0xff19a9ff ) ) },
-                { 表示レーン種別.RightCymbal,  new SolidColorBrush( dc, new Color4( 0xffffb55e ) ) },
+                { 表示レーン種別.RightCymbal,  new SolidColorBrush( dc, new Color4( 0xffff6e5e ) ) },
+                { 表示レーン種別.Ride,         new SolidColorBrush( dc, new Color4( 0xffffce5e ) ) },
             };
         }
 
@@ -92,6 +93,7 @@ namespace DTXMania2.選曲
                             { 表示レーン種別.Tom2,         +178f },
                             { 表示レーン種別.Tom3,         +196f },
                             { 表示レーン種別.RightCymbal,  +214f },
+                            { 表示レーン種別.Ride,         +232f },
                         };
 
                         foreach( 表示レーン種別? lane in Enum.GetValues( typeof( 表示レーン種別 ) ) )

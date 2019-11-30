@@ -55,6 +55,13 @@ namespace DTXMania2
         public int CymbalFree { get; set; }
 
         /// <summary>
+        ///		演奏モード。
+        ///		0: Basic, 1: Advanced, 2: Expert
+        /// </summary>
+        [YamlMember]
+        public int PlayMode { get; set; }
+
+        /// <summary>
         ///		Ride の表示位置。
         ///		0: 右, 1: 左
         /// </summary>
@@ -81,6 +88,13 @@ namespace DTXMania2
         /// </summary>
         [YamlMember]
         public int DrumSound { get; set; }
+
+        /// <summary>
+        ///     レーンタイプ名。
+        ///     $(System)images\PlayStage\BasicMode\LaneType\*.json の '*' に当たる部分の名前を指定できる。
+        /// </summary>
+        [YamlMember]
+        public string LaneType { get; set; }
 
         /// <summary>
         ///     レーンの透過度[%]。
@@ -211,6 +225,13 @@ namespace DTXMania2
         public int AutoPlay_FloorTom { get; set; }
 
         /// <summary>
+        ///		ライドレーンの AutoPlay 。
+        ///		0: OFF, その他: ON。
+        /// </summary>
+        [YamlMember]
+        public int AutoPlay_Ride { get; set; }
+
+        /// <summary>
         ///		右シンバルレーンの AutoPlay 。
         ///		0: OFF, その他: ON。
         /// </summary>
@@ -256,10 +277,12 @@ namespace DTXMania2
             this.ScrollSpeed = 1.0;
             this.Fullscreen = 0;
             this.CymbalFree = 1;
+            this.PlayMode = 0;
             this.RideLeft = 0;
             this.ChinaLeft = 0;
             this.SplashLeft = 1;
             this.DrumSound = 1;
+            this.LaneType = "TypeA";
             this.LaneTrans = 40;
             this.BackgroundMovie = 1;
             this.PlaySpeed = 1.0;
@@ -285,29 +308,29 @@ namespace DTXMania2
             this.MaxRange_Ok = 0.117;
         }
 
-        public UserConfig( SqliteDataReader user )
+        public UserConfig(SqliteDataReader user)
             : this()
         {
-            this.UpdateFrom( user );
+            this.UpdateFrom(user);
         }
 
-        public static UserConfig 読み込むFromPath( VariablePath path )
+        public static UserConfig 読み込むFromPath(VariablePath path)
         {
-            using var _ = new LogBlock( Log.現在のメソッド名 );
+            using var _ = new LogBlock(Log.現在のメソッド名);
 
-            var yamlText = File.ReadAllText( path.変数なしパス );
+            var yamlText = File.ReadAllText(path.変数なしパス);
             var deserializer = new Deserializer();
-            var config = deserializer.Deserialize<UserConfig>( yamlText );
+            var config = deserializer.Deserialize<UserConfig>(yamlText);
 
-            if( VERSION != config.Version )
-                throw new Exception( "バージョンが違います。" );
+            if (VERSION != config.Version)
+                throw new Exception("バージョンが違います。");
 
             return config;
         }
 
-        public static UserConfig 読み込むFromID( string userId )
+        public static UserConfig 読み込むFromID(string userId)
         {
-            return 読み込むFromPath( @$"$(AppData)\User_{userId}.yaml" );
+            return 読み込むFromPath(@$"$(AppData)\User_{userId}.yaml");
         }
 
         /// <summary>
@@ -315,64 +338,66 @@ namespace DTXMania2
         /// </summary>
         public void 保存する()
         {
-            using var _ = new LogBlock( Log.現在のメソッド名 );
+            using var _ = new LogBlock(Log.現在のメソッド名);
 
             var serializer = new SerializerBuilder()
-                .WithTypeInspector( inner => new CommentGatheringTypeInspector( inner ) )
-                .WithEmissionPhaseObjectGraphVisitor( args => new CommentsObjectGraphVisitor( args.InnerVisitor ) )
+                .WithTypeInspector(inner => new CommentGatheringTypeInspector(inner))
+                .WithEmissionPhaseObjectGraphVisitor(args => new CommentsObjectGraphVisitor(args.InnerVisitor))
                 .EmitDefaults()
                 .Build();
 
             // ※ 値が既定値であるプロパティは出力されないので注意。
-            var path = new VariablePath( @$"$(AppData)\User_{this.Id}.yaml" );
-            var yaml = serializer.Serialize( this );
-            File.WriteAllText( path.変数なしパス, yaml );
+            var path = new VariablePath(@$"$(AppData)\User_{this.Id}.yaml");
+            var yaml = serializer.Serialize(this);
+            File.WriteAllText(path.変数なしパス, yaml);
 
-            Log.Info( $"ユーザ設定を保存しました。[{path.変数付きパス}]" );
+            Log.Info($"ユーザ設定を保存しました。[{path.変数付きパス}]");
         }
 
         /// <summary>
         ///     SqliteDataReader からレコードを読み込んでフィールドを更新する。
         /// </summary>
         /// <param name="user">Read() 済みの SqliteDataReader。</param>
-        public void UpdateFrom( SqliteDataReader user )
+        public void UpdateFrom(SqliteDataReader user)
         {
-            for( int i = 0; i < user.FieldCount; i++ )
+            for (int i = 0; i < user.FieldCount; i++)
             {
-                switch( user.GetName( i ) )
+                switch (user.GetName(i))
                 {
-                    case "Id": this.Id = user.GetString( i ); break;
-                    case "Name": this.Name = user.GetString( i ); break;
-                    case "ScrollSpeed": this.ScrollSpeed = user.GetDouble( i ); break;
-                    case "Fullscreen": this.Fullscreen = user.GetInt32( i ); break;
-                    case "CymbalFree": this.CymbalFree = user.GetInt32( i ); break;
-                    case "RideLeft": this.RideLeft = user.GetInt32( i ); break;      // v004
-                    case "ChinaLeft": this.ChinaLeft = user.GetInt32( i ); break;    // v004
-                    case "SplashLeft": this.SplashLeft = user.GetInt32( i ); break;  // v004
-                    case "DrumSound": this.DrumSound = user.GetInt32( i ); break;    // v005
-                    case "LaneTrans": this.LaneTrans = user.GetInt32( i ); break;    // v007 
-                    case "BackgroundMovie": this.BackgroundMovie = user.GetInt32( i ); break;    // v008
-                    case "PlaySpeed": this.PlaySpeed = user.GetDouble( i ); break;           // v009
-                    case "ShowPartLine": this.ShowPartLine = user.GetInt32( i ); break;      // v009
-                    case "ShowPartNumber": this.ShowPartNumber = user.GetInt32( i ); break;  // v009
-                    case "ShowScoreWall": this.ShowScoreWall = user.GetInt32( i ); break;              // v010
-                    case "BackgroundMovieSize": this.BackgroundMovieSize = user.GetInt32( i ); break;  // v010
-                    case "ShowFastSlow": this.ShowFastSlow = user.GetInt32( i ); break;      // v011
-                    case "NoteSizeByVolume": this.NoteSizeByVolume = user.GetInt32( i ); break;      // v013
-                    case "Dark": this.Dark = user.GetInt32( i ); break;                              // v013
-                    case "AutoPlay_LeftCymbal": this.AutoPlay_LeftCymbal = user.GetInt32( i ); break;
-                    case "AutoPlay_HiHat": this.AutoPlay_HiHat = user.GetInt32( i ); break;
-                    case "AutoPlay_LeftPedal": this.AutoPlay_LeftPedal = user.GetInt32( i ); break;
-                    case "AutoPlay_Snare": this.AutoPlay_Snare = user.GetInt32( i ); break;
-                    case "AutoPlay_Bass": this.AutoPlay_Bass = user.GetInt32( i ); break;
-                    case "AutoPlay_HighTom": this.AutoPlay_HighTom = user.GetInt32( i ); break;
-                    case "AutoPlay_LowTom": this.AutoPlay_LowTom = user.GetInt32( i ); break;
-                    case "AutoPlay_FloorTom": this.AutoPlay_FloorTom = user.GetInt32( i ); break;
-                    case "AutoPlay_RightCymbal": this.AutoPlay_RightCymbal = user.GetInt32( i ); break;
-                    case "MaxRange_Perfect": this.MaxRange_Perfect = user.GetDouble( i ); break;
-                    case "MaxRange_Great": this.MaxRange_Great = user.GetDouble( i ); break;
-                    case "MaxRange_Good": this.MaxRange_Good = user.GetDouble( i ); break;
-                    case "MaxRange_Ok": this.MaxRange_Ok = user.GetDouble( i ); break;
+                    case "Id": this.Id = user.GetString(i); break;
+                    case "Name": this.Name = user.GetString(i); break;
+                    case "ScrollSpeed": this.ScrollSpeed = user.GetDouble(i); break;
+                    case "Fullscreen": this.Fullscreen = user.GetInt32(i); break;
+                    case "CymbalFree": this.CymbalFree = user.GetInt32(i); break;
+                    case "PlayMode": this.PlayMode = user.GetInt32(i); break;
+                    case "RideLeft": this.RideLeft = user.GetInt32(i); break;      // v004
+                    case "ChinaLeft": this.ChinaLeft = user.GetInt32(i); break;    // v004
+                    case "SplashLeft": this.SplashLeft = user.GetInt32(i); break;  // v004
+                    case "DrumSound": this.DrumSound = user.GetInt32(i); break;    // v005
+                    case "LaneType": this.LaneType = user.GetString(i); break;     // v007 
+                    case "LaneTrans": this.LaneTrans = user.GetInt32(i); break;    // v007 
+                    case "BackgroundMovie": this.BackgroundMovie = user.GetInt32(i); break;    // v008
+                    case "PlaySpeed": this.PlaySpeed = user.GetDouble(i); break;           // v009
+                    case "ShowPartLine": this.ShowPartLine = user.GetInt32(i); break;      // v009
+                    case "ShowPartNumber": this.ShowPartNumber = user.GetInt32(i); break;  // v009
+                    case "ShowScoreWall": this.ShowScoreWall = user.GetInt32(i); break;              // v010
+                    case "BackgroundMovieSize": this.BackgroundMovieSize = user.GetInt32(i); break;  // v010
+                    case "ShowFastSlow": this.ShowFastSlow = user.GetInt32(i); break;      // v011
+                    case "NoteSizeByVolume": this.NoteSizeByVolume = user.GetInt32(i); break;      // v013
+                    case "Dark": this.Dark = user.GetInt32(i); break;                              // v013
+                    case "AutoPlay_LeftCymbal": this.AutoPlay_LeftCymbal = user.GetInt32(i); break;
+                    case "AutoPlay_HiHat": this.AutoPlay_HiHat = user.GetInt32(i); break;
+                    case "AutoPlay_LeftPedal": this.AutoPlay_LeftPedal = user.GetInt32(i); break;
+                    case "AutoPlay_Snare": this.AutoPlay_Snare = user.GetInt32(i); break;
+                    case "AutoPlay_Bass": this.AutoPlay_Bass = user.GetInt32(i); break;
+                    case "AutoPlay_HighTom": this.AutoPlay_HighTom = user.GetInt32(i); break;
+                    case "AutoPlay_LowTom": this.AutoPlay_LowTom = user.GetInt32(i); break;
+                    case "AutoPlay_FloorTom": this.AutoPlay_FloorTom = user.GetInt32(i); break;
+                    case "AutoPlay_RightCymbal": this.AutoPlay_RightCymbal = user.GetInt32(i); break;
+                    case "MaxRange_Perfect": this.MaxRange_Perfect = user.GetDouble(i); break;
+                    case "MaxRange_Great": this.MaxRange_Great = user.GetDouble(i); break;
+                    case "MaxRange_Good": this.MaxRange_Good = user.GetDouble(i); break;
+                    case "MaxRange_Ok": this.MaxRange_Ok = user.GetDouble(i); break;
                 }
             }
         }
