@@ -6,9 +6,9 @@ using Microsoft.Data.Sqlite;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 
-namespace DTXMania2
+namespace DTXMania2.old.UserConfig
 {
-    partial class UserConfig
+    partial class v015_UserConfig
     {
 
         // プロパティ
@@ -55,13 +55,6 @@ namespace DTXMania2
         public int CymbalFree { get; set; }
 
         /// <summary>
-        ///		演奏モード。
-        ///		0: Basic, 1: Advanced, 2: Expert
-        /// </summary>
-        [YamlMember]
-        public int PlayMode { get; set; }
-
-        /// <summary>
         ///		Ride の表示位置。
         ///		0: 右, 1: 左
         /// </summary>
@@ -88,13 +81,6 @@ namespace DTXMania2
         /// </summary>
         [YamlMember]
         public int DrumSound { get; set; }
-
-        /// <summary>
-        ///     レーンタイプ名。
-        ///     $(System)images\PlayStage\BasicMode\LaneType\*.json の '*' に当たる部分の名前を指定できる。
-        /// </summary>
-        [YamlMember]
-        public string LaneType { get; set; }
 
         /// <summary>
         ///     レーンの透過度[%]。
@@ -225,13 +211,6 @@ namespace DTXMania2
         public int AutoPlay_FloorTom { get; set; }
 
         /// <summary>
-        ///		ライドレーンの AutoPlay 。
-        ///		0: OFF, その他: ON。
-        /// </summary>
-        [YamlMember]
-        public int AutoPlay_Ride { get; set; }
-
-        /// <summary>
         ///		右シンバルレーンの AutoPlay 。
         ///		0: OFF, その他: ON。
         /// </summary>
@@ -269,7 +248,7 @@ namespace DTXMania2
         // 生成と終了
 
 
-        public UserConfig()
+        public v015_UserConfig()
         {
             this.Version = VERSION;
             this.Id = "Anonymous";
@@ -277,12 +256,10 @@ namespace DTXMania2
             this.ScrollSpeed = 1.0;
             this.Fullscreen = 0;
             this.CymbalFree = 1;
-            this.PlayMode = 0;
             this.RideLeft = 0;
             this.ChinaLeft = 0;
             this.SplashLeft = 1;
             this.DrumSound = 1;
-            this.LaneType = "TypeA";
             this.LaneTrans = 40;
             this.BackgroundMovie = 1;
             this.PlaySpeed = 1.0;
@@ -301,7 +278,6 @@ namespace DTXMania2
             this.AutoPlay_HighTom = 1;
             this.AutoPlay_LowTom = 1;
             this.AutoPlay_FloorTom = 1;
-            this.AutoPlay_Ride = 1;
             this.AutoPlay_RightCymbal = 1;
             this.MaxRange_Perfect = 0.034;
             this.MaxRange_Great = 0.067;
@@ -309,19 +285,19 @@ namespace DTXMania2
             this.MaxRange_Ok = 0.117;
         }
 
-        public UserConfig(SqliteDataReader user)
+        public v015_UserConfig(SqliteDataReader user)
             : this()
         {
             this.UpdateFrom(user);
         }
 
-        public static UserConfig 読み込むFromPath(VariablePath path)
+        public static v015_UserConfig 読み込むFromPath(VariablePath path)
         {
             using var _ = new LogBlock(Log.現在のメソッド名);
 
             var yamlText = File.ReadAllText(path.変数なしパス);
             var deserializer = new Deserializer();
-            var config = deserializer.Deserialize<UserConfig>(yamlText);
+            var config = deserializer.Deserialize<v015_UserConfig>(yamlText);
 
             if (VERSION != config.Version)
                 throw new Exception("バージョンが違います。");
@@ -329,7 +305,7 @@ namespace DTXMania2
             return config;
         }
 
-        public static UserConfig 読み込むFromID(string userId)
+        public static v015_UserConfig 読み込むFromID(string userId)
         {
             return 読み込むFromPath(@$"$(AppData)\User_{userId}.yaml");
         }
@@ -370,12 +346,10 @@ namespace DTXMania2
                     case "ScrollSpeed": this.ScrollSpeed = user.GetDouble(i); break;
                     case "Fullscreen": this.Fullscreen = user.GetInt32(i); break;
                     case "CymbalFree": this.CymbalFree = user.GetInt32(i); break;
-                    case "PlayMode": this.PlayMode = user.GetInt32(i); break;      // v1001
                     case "RideLeft": this.RideLeft = user.GetInt32(i); break;      // v004
                     case "ChinaLeft": this.ChinaLeft = user.GetInt32(i); break;    // v004
                     case "SplashLeft": this.SplashLeft = user.GetInt32(i); break;  // v004
                     case "DrumSound": this.DrumSound = user.GetInt32(i); break;    // v005
-                    case "LaneType": this.LaneType = user.GetString(i); break;     // v1001 
                     case "LaneTrans": this.LaneTrans = user.GetInt32(i); break;    // v007 
                     case "BackgroundMovie": this.BackgroundMovie = user.GetInt32(i); break;    // v008
                     case "PlaySpeed": this.PlaySpeed = user.GetDouble(i); break;           // v009
@@ -394,7 +368,6 @@ namespace DTXMania2
                     case "AutoPlay_HighTom": this.AutoPlay_HighTom = user.GetInt32(i); break;
                     case "AutoPlay_LowTom": this.AutoPlay_LowTom = user.GetInt32(i); break;
                     case "AutoPlay_FloorTom": this.AutoPlay_FloorTom = user.GetInt32(i); break;
-                    case "AutoPlay_Ride": this.AutoPlay_Ride = user.GetInt32(i); break;             // v1001
                     case "AutoPlay_RightCymbal": this.AutoPlay_RightCymbal = user.GetInt32(i); break;
                     case "MaxRange_Perfect": this.MaxRange_Perfect = user.GetDouble(i); break;
                     case "MaxRange_Great": this.MaxRange_Great = user.GetDouble(i); break;

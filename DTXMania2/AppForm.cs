@@ -25,7 +25,7 @@ namespace DTXMania2
         /// </summary>
         /// <remarks>
         ///     <see cref="AppForm"/> インスタンスの終了時にこのフラグが true になっている場合には、
-        ///     このインスタンスの保持者（おそらくProgramクラス）は適切に再起動（<see cref="Application.Restart"/>の呼び出し）を行うこと。
+        ///     このインスタンスの保持者（おそらくProgramクラス）は適切に再起動を行うこと。
         /// </remarks>
         public bool 再起動が必要 { get; protected set; } = false;
 
@@ -88,6 +88,7 @@ namespace DTXMania2
             this.Text = $"DTXMania2 Release {int.Parse( Application.ProductVersion.Split( '.' ).ElementAt( 0 ) ):000} {( ( Environment.Is64BitProcess ) ? "" : "(x86)" )}";
             this.ClientSize = new Size( 1024, 576 );
 
+            // App を生成して進行描画タスクを起動する。
             Global.AppForm = this;
             Global.Handle = this.Handle;
             Global.App = new App();
@@ -212,10 +213,9 @@ namespace DTXMania2
         /// <summary>
         ///     いずれかのスレッドで例外が発生したことを通知する。
         /// </summary>
-        /// <returns>通知が受信されれば set されるイベント。</returns>
         /// <remarks>
         ///     通常、メインスレッド（UIスレッド）以外のスレッドで例外が発生した場合、
-        ///     デバッグ環境ではデバッガに catch されるが、リリース環境では放置される。
+        ///     デバッグ環境ではデバッガで catch することもできるが、リリース環境では放置される。
         ///     そのため、メインスレッド以外のスレッドで致命的な例外が発生した場合にこのメソッドを呼び出すと、
         ///     他スレッドで致命的な例外が発生したことをメインスレッドに通知することができる。
         /// </remarks>
@@ -225,6 +225,8 @@ namespace DTXMania2
                 throw e;
             } ) );
         }
+
+
 
         // ローカル
 

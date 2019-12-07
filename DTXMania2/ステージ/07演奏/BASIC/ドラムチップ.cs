@@ -77,14 +77,17 @@ namespace DTXMania2.演奏.BASIC
                 return false;
 
             // BASICモードでは、チップの大きさは変化しない。ADVANCEDは変化する。
+            // 191201 OrzHighlight 追記：オプションにサイズ変化のオン／オフが切り替えられるなら、モードに依存しなくてもいい
             float 大きさ0to1 = 1.0f;
             var userConfig = Global.App.ログオン中のユーザ;
 
             #region " 音量からチップの大きさを計算する。"
             //----------------
-            if (userConfig.演奏モード > PlayMode.BASIC && userConfig.音量に応じてチップサイズを変更する)
+            if (userConfig.音量に応じてチップサイズを変更する)
             {
-                if (chip.チップ種別 != チップ種別.Snare_Ghost)   // Ghost は対象外
+                if ((chip.チップ種別 != チップ種別.Snare_Ghost) &&        // Ghost は対象外
+                    (chip.チップ種別 != チップ種別.LeftCymbal_Mute) &&    // 191202 OrzHighlight Muteも対象外
+                    (chip.チップ種別 != チップ種別.RightCymbal_Mute))
                 {
                     // 191130 OrzHighlight チップのY幅を音量に応じて3/9、4/9、…、8/9、9/9、1.2にします
                     大きさ0to1 = chip.音量 <= チップ.既定音量 ? ((chip.音量 + 2) / (float)(チップ.既定音量 + 2)) : 1.2f;
@@ -126,6 +129,14 @@ namespace DTXMania2.演奏.BASIC
                             case 表示チップ種別.HiHat_Open:
                             case 表示チップ種別.HiHat_HalfOpen:
                             case 表示チップ種別.Foot:
+                            case 表示チップ種別.Snare:
+                            case 表示チップ種別.Snare_ClosedRim:
+                            case 表示チップ種別.Snare_OpenRim:
+                            case 表示チップ種別.Snare_Ghost:
+                            case 表示チップ種別.Tom1:
+                            case 表示チップ種別.Tom1_Rim:
+                            case 表示チップ種別.Tom2:
+                            case 表示チップ種別.Tom2_Rim:
                             case 表示チップ種別.Tom3:
                             case 表示チップ種別.Tom3_Rim:
                             case 表示チップ種別.LeftRide:

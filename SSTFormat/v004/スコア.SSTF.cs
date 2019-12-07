@@ -180,7 +180,7 @@ namespace SSTFormat.v004
                             int 区切り位置 = 行.IndexOf( '#' );
                             if( 0 <= 区切り位置 )
                             {
-                                行 = 行[ 0..区切り位置 ];
+                                行 = 行[ ..区切り位置 ];
                                 行 = 行.Trim();
                             }
                         }
@@ -349,7 +349,7 @@ namespace SSTFormat.v004
 
                     try
                     {
-                        現在の.スコア.難易度 = Math.Max( Math.Min( double.Parse( items[ 1 ].Trim() ), 9.99 ), 0.00 );
+                        現在の.スコア.難易度 = Math.Clamp( double.Parse( items[ 1 ].Trim() ), min: 0.00, max: 9.99 );
                     }
                     catch
                     {
@@ -955,6 +955,16 @@ namespace SSTFormat.v004
                                             continue;
 
                                         case チップ種別.Bass:
+                                            if( 'l' == 属性ID )
+                                            {
+                                                #region " Bass.左足で踏むバスチップ "
+                                                //-----------------
+                                                chipTokens[i] = chipTokens[i][1..].Trim();
+                                                chip.チップ種別 = チップ種別.LeftBass;
+                                                //-----------------
+                                                #endregion
+                                            }
+                                            else
                                             {
                                                 #region " 未知の属性 "
                                                 //-----------------
@@ -1387,6 +1397,10 @@ namespace SSTFormat.v004
 
                                 case チップ種別.Snare_Ghost:
                                     sw.Write( 'g' );
+                                    break;
+
+                                case チップ種別.LeftBass:
+                                    sw.Write( 'l' );
                                     break;
 
                                 case チップ種別.Tom1_Rim:

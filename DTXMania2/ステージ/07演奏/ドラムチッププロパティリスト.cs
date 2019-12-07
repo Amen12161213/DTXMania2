@@ -1911,7 +1911,7 @@ namespace DTXMania2.演奏
                         kvp.Value.表示レーン種別 = ( this.表示レーンの左右.Chinaは左 ) ? 表示レーン種別.LeftCymbal : 表示レーン種別.RightCymbal;
                         kvp.Value.AutoPlay種別 = ( this.表示レーンの左右.Chinaは左 ) ? AutoPlay種別.LeftCrash : AutoPlay種別.RightCrash;
                         kvp.Value.消音グループ種別 = ( this.表示レーンの左右.Chinaは左 ) ? 消音グループ種別.LeftCymbal : 消音グループ種別.RightCymbal;
-                        kvp.Value.表示チップ種別 = (this.演奏モード == PlayMode.EXPERT) ?
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ?
                             ((this.表示レーンの左右.Chinaは左) ? 表示チップ種別.LeftChina : 表示チップ種別.RightChina) :
                             ((this.表示レーンの左右.Chinaは左) ? 表示チップ種別.LeftCymbal : 表示チップ種別.RightCymbal);
                         break;
@@ -1920,7 +1920,7 @@ namespace DTXMania2.演奏
                         kvp.Value.表示レーン種別 = ( this.表示レーンの左右.Splashは左 ) ? 表示レーン種別.LeftCymbal : 表示レーン種別.RightCymbal;
                         kvp.Value.AutoPlay種別 = ( this.表示レーンの左右.Splashは左 ) ? AutoPlay種別.LeftCrash : AutoPlay種別.RightCrash;
                         kvp.Value.消音グループ種別 = ( this.表示レーンの左右.Splashは左 ) ? 消音グループ種別.LeftCymbal : 消音グループ種別.RightCymbal;
-                        kvp.Value.表示チップ種別 = (this.演奏モード == PlayMode.EXPERT) ?
+                        kvp.Value.表示チップ種別 = (this.演奏モード > PlayMode.BASIC) ?
                             ((this.表示レーンの左右.Splashは左) ? 表示チップ種別.LeftSplash : 表示チップ種別.RightSplash) :
                             ((this.表示レーンの左右.Splashは左) ? 表示チップ種別.LeftCymbal : 表示チップ種別.RightCymbal);
                         break;

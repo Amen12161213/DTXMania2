@@ -125,7 +125,7 @@ namespace DTXMania2.選曲
 
                             // ランダムに選曲する
 
-                            Global.App.演奏譜面 = randomNode.譜面をランダムに選んで返す( randomNode );
+                            Global.App.演奏譜面 = randomNode.譜面をランダムに選んで返す();
 
                             Global.App.システムサウンド.再生する( システムサウンド種別.選曲ステージ_曲決定音 );
                             Global.App.アイキャッチ管理.アイキャッチを選択しクローズする( nameof( GO ) );
@@ -133,7 +133,7 @@ namespace DTXMania2.選曲
                             this._フェートアウト後のフェーズ = フェーズ.確定_選曲;
                             this.現在のフェーズ = フェーズ.フェードアウト;
                         }
-                        else if( フォーカスノード is SongNode snode )
+                        else if( フォーカスノード is SongNode snode && null != snode.曲.フォーカス譜面 )
                         {
                             // 曲ツリーの現行化タスクが動いていれば、一時停止する。
                             Global.App.現行化.一時停止する();
