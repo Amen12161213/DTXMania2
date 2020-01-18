@@ -18,7 +18,13 @@ namespace DTXMania2.演奏.BASIC
         {
             using var _ = new LogBlock(Log.現在のメソッド名);
 
-            this._ヒットバー画像 = new 画像(@"$(Images)\PlayStage\BASIC\HitBar.png");
+            string mode = Global.App.ログオン中のユーザ.演奏モード.ToString();
+
+            // 200115 OrzHighlight EXPERTフォルダがないため
+            if (Global.App.ログオン中のユーザ.演奏モード == PlayMode.EXPERT)
+                mode = PlayMode.BASIC.ToString();
+
+            this._ヒットバー画像 = new 画像(@"$(Images)\PlayStage\" + mode + @"\HitBar.png");
         }
 
         public virtual void Dispose()

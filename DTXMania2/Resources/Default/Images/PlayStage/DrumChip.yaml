@@ -26,11 +26,20 @@ RectangleList:
     Tom3_Rim: [362, 817, 75, 69]
     LeftRide: [0, 748, 181, 69]
     RightRide: [181, 748, 181, 69]
-    LeftRide_Cup: [0, 748, 181, 69]
-    RightRide_Cup: [181, 748, 181, 69]
+    LeftRide_Cup: [512, 748, 181, 69]
+    RightRide_Cup: [693, 748, 181, 69]
     LeftChina: [0, 886, 181, 69]
     RightChina: [181, 886, 181, 69]
     LeftSplash: [0, 817, 181, 69]
     RightSplash: [181, 817, 181, 69]
     LeftCymbal_Mute: [362, 748, 75, 69]
     RightCymbal_Mute: [437, 748, 75, 69]
+    SubLeftCymbal: [512, 955, 181, 69]
+    SubRightCymbal: [693, 955, 181, 69]
+    SubLeftPedal: [512, 0, 47, 738]     # long
+    SubRightPedal: [512, 0, 47, 738]    # long
+    SubTom1: [556, 0, 70, 738]          # long
+    SubTom2: [623, 0, 69, 738]          # long
+    SubTom3: [689, 0, 70, 738]          # long
+    LeftSubRide: [512, 817, 181, 69]
+    RightSubRide: [693, 817, 181, 69]

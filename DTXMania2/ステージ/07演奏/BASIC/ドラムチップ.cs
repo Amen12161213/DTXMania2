@@ -18,8 +18,15 @@ namespace DTXMania2.演奏.BASIC
         {
             using var _ = new LogBlock(Log.現在のメソッド名);
 
-            this._ドラムチップ画像 = new 画像(@"$(Images)\PlayStage\BASIC\DrumChip.png");
-            this._ドラムチップの矩形リスト = new 矩形リスト(@"$(Images)\PlayStage\BASIC\LaneType\" + Global.App.ログオン中のユーザ.レーン配置 + @"\DrumChip.yaml");
+            string mode = Global.App.ログオン中のユーザ.演奏モード.ToString();
+            string layout = Global.App.ログオン中のユーザ.レーン配置.ToString();
+
+            // 200115 OrzHighlight EXPERTフォルダがないため
+            if (Global.App.ログオン中のユーザ.演奏モード == PlayMode.EXPERT)
+                mode = PlayMode.BASIC.ToString();
+
+            this._ドラムチップ画像 = new 画像(@"$(Images)\PlayStage\" + mode + @"\DrumChip.png");
+            this._ドラムチップの矩形リスト = new 矩形リスト(@"$(Images)\PlayStage\" + mode + @"\LaneType\" + layout + @"\DrumChip.yaml");
             this._ドラムチップアニメ = new LoopCounter(0, 200, 3);
         }
 
@@ -147,6 +154,17 @@ namespace DTXMania2.演奏.BASIC
                             case 表示チップ種別.RightChina:
                             case 表示チップ種別.LeftSplash:
                             case 表示チップ種別.RightSplash:
+
+                            // 200107 OrzHighlight サブチップを追加
+                            case 表示チップ種別.SubLeftCymbal:
+                            case 表示チップ種別.SubRightCymbal:
+                            case 表示チップ種別.SubLeftPedal:
+                            case 表示チップ種別.SubRightPedal:
+                            case 表示チップ種別.SubTom1:
+                            case 表示チップ種別.SubTom2:
+                            case 表示チップ種別.SubTom3:
+                            case 表示チップ種別.LeftSubRide:
+                            case 表示チップ種別.RightSubRide:
                                 #region " 縦横に伸び縮み "
                                 //----------------
                                 {

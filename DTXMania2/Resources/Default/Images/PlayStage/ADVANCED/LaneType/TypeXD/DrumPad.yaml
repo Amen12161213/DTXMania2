@@ -1,0 +1,29 @@
+﻿RectangleList:
+    # 4つの数値は、Left, Top, Width, Height の順。
+    
+    # パッド本体。各 Name は 表示レーン種別 列挙子の名前であること。
+    Unknown: [0, 0, 0, 0]
+    LeftCymbal: [10, 0, 80, 98]
+    HiHat: [108, 0, 68, 98]
+    Foot: [183, 0, 68, 98]
+    Snare: [259, 0, 80, 98]
+    Bass: [351, 0, 80, 98]
+    Tom1: [447, 0, 70, 98]
+    Tom2: [522, 0, 70, 98]
+    Tom3: [596, 0, 70, 98]
+    RightCymbal: [688, 0, 80, 98]
+    Ride: [774, 0, 68, 98]
+    
+    # パッドフラッシュ。各 Name は 表示レーン種別 列挙子の名前 + ''_Flush'' であること。
+    Unknown_Flush: [0, 0, 0, 0]
+    LeftCymbal_Flush: [10, 98, 80, 98]
+    HiHat_Flush: [108, 98, 68, 98]
+    Foot_Flush: [183, 98, 68, 98]
+    Snare_Flush: [259, 98, 80, 98]
+    Bass_Flush: [351, 98, 80, 98]
+    Tom1_Flush: [447, 98, 70, 98]
+    Tom2_Flush: [522, 98, 70, 98]
+    Tom3_Flush: [596, 98, 70, 98]
+    RightCymbal_Flush: [688, 98, 80, 98]
+    Ride_Flush: [774, 98, 68, 98]
+    

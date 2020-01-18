@@ -61,6 +61,21 @@ namespace SSTFormat.v004
         /// </summary>
         Splash = 5,
 
+        /// <summary>
+        ///     サブシンバル（左）。
+        /// </summary>
+        SubLeftCymbal = 66,
+
+        /// <summary>
+        ///     サブシンバル（右）。
+        /// </summary>
+        SubRightCymbal = 67,
+
+        /// <summary>
+        ///     サブライドシンバル。
+        /// </summary>
+        SubRide = 68,
+
         //----------------
         #endregion
 
@@ -129,6 +144,16 @@ namespace SSTFormat.v004
         /// </summary>
         LeftBass = 38,
 
+        /// <summary>
+        ///     サブペダル（右）。
+        /// </summary>
+        SubRightPedal = 69,
+
+        /// <summary>
+        ///     サブペダル（左）。
+        /// </summary>
+        SubLeftPedal = 70,
+
         //----------------
         #endregion
 
@@ -164,6 +189,21 @@ namespace SSTFormat.v004
         ///     フロアタムのリムショット。
         /// </summary>
         Tom3_Rim = 20,
+
+        /// <summary>
+        ///     サブタム1。
+        /// </summary>
+        SubTom1 = 71,
+
+        /// <summary>
+        ///     サブタム2。
+        /// </summary>
+        SubTom2 = 72,
+
+        /// <summary>
+        ///     サブタム3。
+        /// </summary>
+        SubTom3 = 73,
 
         //----------------
         #endregion
@@ -568,6 +608,6 @@ namespace SSTFormat.v004
         #endregion
 
 
-        // ※現時点の最終値: 65 → 次は 66 から！
+        // ※現時点の最終値: 73 → 次は 74 から！
     }
 }

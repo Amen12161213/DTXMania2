@@ -66,7 +66,13 @@ namespace DTXMania2.演奏.BASIC
         {
             // レーン配置フォルダから、レーン配置に適合する設定ファイルを検索。
 
-            var root = new VariablePath(@"$(Images)\PlayStage\BASIC\LaneType");
+            string mode = Global.App.ログオン中のユーザ.演奏モード.ToString();
+
+            // 200115 OrzHighlight EXPERTフォルダがないため
+            if (Global.App.ログオン中のユーザ.演奏モード == PlayMode.EXPERT)
+                mode = PlayMode.BASIC.ToString();
+
+            var root = new VariablePath(@"$(Images)\PlayStage\" + mode + @"\LaneType");
 
             レーン配置リスト = new Dictionary<string, レーン配置>();
             /*

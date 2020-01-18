@@ -14,7 +14,7 @@ namespace DTXMania2
         Unknown,
         LeftCrash,
         Ride,
-        //Ride_Cup,			--> Ride として扱う。（打ち分けない。）
+        Ride_Cup,
         China,
         Splash,
         HiHat_Open,
@@ -37,5 +37,15 @@ namespace DTXMania2
         //LeftCymbal_Mute,	--> （YAMAHAでは）入力信号じゃない
         //RightCymbal_Mute,	--> （YAMAHAでは）入力信号じゃない
         Pause_Resume,
+
+        // 200113 OrzHighlight サブチップを追加
+        SubLeftCymbal,
+        SubRightCymbal,
+        SubLeftPedal,
+        SubRightPedal,
+        SubTom1,
+        SubTom2,
+        SubTom3,
+        SubRide
     }
 }

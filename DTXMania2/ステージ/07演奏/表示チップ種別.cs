@@ -38,5 +38,16 @@ namespace DTXMania2.演奏
         RightSplash,
         LeftCymbal_Mute,
         RightCymbal_Mute,
+
+        // 200107 OrzHighlight サブチップを追加
+        SubLeftCymbal,
+        SubRightCymbal,
+        SubLeftPedal,
+        SubRightPedal,
+        SubTom1,
+        SubTom2,
+        SubTom3,
+        LeftSubRide,
+        RightSubRide
     }
 }

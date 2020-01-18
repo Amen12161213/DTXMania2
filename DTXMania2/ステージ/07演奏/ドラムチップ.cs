@@ -216,6 +216,43 @@ namespace DTXMania2.演奏
                     case チップ種別.RightCymbal_Mute:
                         this._単画チップを１つ描画する( 表示レーン種別.RightCymbal, this._ドラムチップの矩形リスト[ 表示チップ種別.RightCymbal_Mute.ToString() ]!.Value, たて中央位置dpx, 等倍, 消滅割合 );
                         break;
+
+                    // 200107 OrzHighlight サブチップを追加
+
+                    case チップ種別.SubLeftCymbal:
+                        this._単画チップを１つ描画する( 表示レーン種別.LeftCymbal, this._ドラムチップの矩形リスト[ 表示チップ種別.SubLeftCymbal.ToString() ]!.Value, たて中央位置dpx, 大きさ0to1, 消滅割合 );
+                        break;
+
+                    case チップ種別.SubRightCymbal:
+                        this._単画チップを１つ描画する( 表示レーン種別.RightCymbal, this._ドラムチップの矩形リスト[ 表示チップ種別.SubRightCymbal.ToString() ]!.Value, たて中央位置dpx, 大きさ0to1, 消滅割合 );
+                        break;
+
+                    case チップ種別.SubLeftPedal:
+                        this._アニメチップを１つ描画する( 表示レーン種別.Foot, this._ドラムチップの矩形リスト[ 表示チップ種別.SubLeftPedal.ToString() ]!.Value, たて中央位置dpx, 大きさ0to1, 消滅割合 );
+                        break;
+
+                    case チップ種別.SubRightPedal:
+                        this._アニメチップを１つ描画する( 表示レーン種別.Bass, this._ドラムチップの矩形リスト[ 表示チップ種別.SubRightPedal.ToString() ]!.Value, たて中央位置dpx, 大きさ0to1, 消滅割合 );
+                        break;
+
+                    case チップ種別.SubTom1:
+                        this._アニメチップを１つ描画する( 表示レーン種別.Tom1, this._ドラムチップの矩形リスト[ 表示チップ種別.SubTom1.ToString() ]!.Value, たて中央位置dpx, 大きさ0to1, 消滅割合 );
+                        break;
+
+                    case チップ種別.SubTom2:
+                        this._アニメチップを１つ描画する( 表示レーン種別.Tom2, this._ドラムチップの矩形リスト[ 表示チップ種別.SubTom2.ToString() ]!.Value, たて中央位置dpx, 大きさ0to1, 消滅割合 );
+                        break;
+
+                    case チップ種別.SubTom3:
+                        this._アニメチップを１つ描画する( 表示レーン種別.Tom3, this._ドラムチップの矩形リスト[ 表示チップ種別.SubTom3.ToString() ]!.Value, たて中央位置dpx, 大きさ0to1, 消滅割合 );
+                        break;
+
+                    case チップ種別.SubRide:
+                        if( userConfig.表示レーンの左右.Rideは左 )
+                            this._単画チップを１つ描画する( 表示レーン種別.LeftCymbal, this._ドラムチップの矩形リスト[ 表示チップ種別.LeftSubRide.ToString() ]!.Value, たて中央位置dpx, 大きさ0to1, 消滅割合 );
+                        else
+                            this._単画チップを１つ描画する( 表示レーン種別.RightCymbal, this._ドラムチップの矩形リスト[ 表示チップ種別.RightSubRide.ToString() ]!.Value, たて中央位置dpx, 大きさ0to1, 消滅割合 );
+                        break;
                 }
                 //----------------
                 #endregion

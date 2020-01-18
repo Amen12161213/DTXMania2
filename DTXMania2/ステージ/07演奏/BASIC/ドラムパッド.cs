@@ -17,8 +17,15 @@ namespace DTXMania2.演奏.BASIC
         {
             using var _ = new LogBlock(Log.現在のメソッド名);
 
-            this._パッド画像 = new 画像(@"$(Images)\PlayStage\BASIC\DrumPad.png");
-            this._パッド絵の矩形リスト = new 矩形リスト(@"$(Images)\PlayStage\BASIC\LaneType\" + Global.App.ログオン中のユーザ.レーン配置 + @"\DrumPad.yaml");
+            string mode = Global.App.ログオン中のユーザ.演奏モード.ToString();
+            string layout = Global.App.ログオン中のユーザ.レーン配置.ToString();
+
+            // 200115 OrzHighlight EXPERTフォルダがないため
+            if (Global.App.ログオン中のユーザ.演奏モード == PlayMode.EXPERT)
+                mode = PlayMode.BASIC.ToString();
+
+            this._パッド画像 = new 画像(@"$(Images)\PlayStage\" + mode + @"\DrumPad.png");
+            this._パッド絵の矩形リスト = new 矩形リスト(@"$(Images)\PlayStage\" + mode + @"\LaneType\" + layout + @"\DrumPad.yaml");
             this._レーンtoパッドContext = new Dictionary<表示レーン種別, パッドContext>();
 
             foreach (表示レーン種別 lane in Enum.GetValues(typeof(表示レーン種別)))

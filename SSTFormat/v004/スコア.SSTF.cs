@@ -797,12 +797,22 @@ namespace SSTFormat.v004
                                     switch( 現在の.チップ種別 )
                                     {
                                         case チップ種別.LeftCrash:
+                                        case チップ種別.SubLeftCymbal:
                                             if( 'm' == 属性ID )
                                             {
                                                 #region " ミュート "
                                                 //----------------
                                                 chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
                                                 chip.チップ種別 = チップ種別.LeftCymbal_Mute;
+                                                //----------------
+                                                #endregion
+                                            }
+                                            else if( 's' == 属性ID )
+                                            {
+                                                #region " サブシンバル （左）"
+                                                //----------------
+                                                chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
+                                                chip.チップ種別 = チップ種別.SubLeftCymbal;
                                                 //----------------
                                                 #endregion
                                             }
@@ -819,6 +829,7 @@ namespace SSTFormat.v004
 
                                         case チップ種別.Ride:
                                         case チップ種別.Ride_Cup:
+                                        case チップ種別.SubRide:
                                             if( 'c' == 属性ID )
                                             {
                                                 #region " Ride.カップ "
@@ -826,6 +837,15 @@ namespace SSTFormat.v004
                                                 chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
                                                 chip.チップ種別 = チップ種別.Ride_Cup;
                                                 //-----------------
+                                                #endregion
+                                            }
+                                            else if( 's' == 属性ID )
+                                            {
+                                                #region " サブライドシンバル "
+                                                //----------------
+                                                chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
+                                                chip.チップ種別 = チップ種別.SubRide;
+                                                //----------------
                                                 #endregion
                                             }
                                             else
@@ -865,6 +885,7 @@ namespace SSTFormat.v004
                                         case チップ種別.HiHat_HalfOpen:
                                         case チップ種別.HiHat_Open:
                                         case チップ種別.HiHat_Foot:
+                                        case チップ種別.SubLeftPedal:
                                             if( 'o' == 属性ID )
                                             {
                                                 #region " HiHat.オープン "
@@ -899,6 +920,15 @@ namespace SSTFormat.v004
                                                 chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
                                                 chip.チップ種別 = チップ種別.HiHat_Foot;
                                                 //-----------------
+                                                #endregion
+                                            }
+                                            else if( 's' == 属性ID )
+                                            {
+                                                #region " サブペダル（左） "
+                                                //----------------
+                                                chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
+                                                chip.チップ種別 = チップ種別.SubLeftPedal;
+                                                //----------------
                                                 #endregion
                                             }
                                             else
@@ -955,6 +985,8 @@ namespace SSTFormat.v004
                                             continue;
 
                                         case チップ種別.Bass:
+                                        case チップ種別.LeftBass:
+                                        case チップ種別.SubRightPedal:
                                             if( 'l' == 属性ID )
                                             {
                                                 #region " Bass.左足で踏むバスチップ "
@@ -962,6 +994,15 @@ namespace SSTFormat.v004
                                                 chipTokens[i] = chipTokens[i][1..].Trim();
                                                 chip.チップ種別 = チップ種別.LeftBass;
                                                 //-----------------
+                                                #endregion
+                                            }
+                                            else if( 's' == 属性ID )
+                                            {
+                                                #region " サブペダル（右） "
+                                                //----------------
+                                                chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
+                                                chip.チップ種別 = チップ種別.SubRightPedal;
+                                                //----------------
                                                 #endregion
                                             }
                                             else
@@ -977,6 +1018,7 @@ namespace SSTFormat.v004
 
                                         case チップ種別.Tom1:
                                         case チップ種別.Tom1_Rim:
+                                        case チップ種別.SubTom1:
                                             if( 'r' == 属性ID )
                                             {
                                                 #region " Tom1.リム "
@@ -984,6 +1026,15 @@ namespace SSTFormat.v004
                                                 chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
                                                 chip.チップ種別 = チップ種別.Tom1_Rim;
                                                 //-----------------
+                                                #endregion
+                                            }
+                                            else if( 's' == 属性ID )
+                                            {
+                                                #region " サブタム1 "
+                                                //----------------
+                                                chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
+                                                chip.チップ種別 = チップ種別.SubTom1;
+                                                //----------------
                                                 #endregion
                                             }
                                             else
@@ -999,6 +1050,7 @@ namespace SSTFormat.v004
 
                                         case チップ種別.Tom2:
                                         case チップ種別.Tom2_Rim:
+                                        case チップ種別.SubTom2:
                                             if( 'r' == 属性ID )
                                             {
                                                 #region " Tom2.リム "
@@ -1006,6 +1058,15 @@ namespace SSTFormat.v004
                                                 chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
                                                 chip.チップ種別 = チップ種別.Tom2_Rim;
                                                 //-----------------
+                                                #endregion
+                                            }
+                                            else if( 's' == 属性ID )
+                                            {
+                                                #region " サブタム2 "
+                                                //----------------
+                                                chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
+                                                chip.チップ種別 = チップ種別.SubTom2;
+                                                //----------------
                                                 #endregion
                                             }
                                             else
@@ -1021,6 +1082,7 @@ namespace SSTFormat.v004
 
                                         case チップ種別.Tom3:
                                         case チップ種別.Tom3_Rim:
+                                        case チップ種別.SubTom3:
                                             if( 'r' == 属性ID )
                                             {
                                                 #region " Tom3.リム "
@@ -1028,6 +1090,15 @@ namespace SSTFormat.v004
                                                 chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
                                                 chip.チップ種別 = チップ種別.Tom3_Rim;
                                                 //-----------------
+                                                #endregion
+                                            }
+                                            else if( 's' == 属性ID )
+                                            {
+                                                #region " サブタム3 "
+                                                //----------------
+                                                chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
+                                                chip.チップ種別 = チップ種別.SubTom3;
+                                                //----------------
                                                 #endregion
                                             }
                                             else
@@ -1042,12 +1113,22 @@ namespace SSTFormat.v004
                                             continue;
 
                                         case チップ種別.RightCrash:
+                                        case チップ種別.SubRightCymbal:
                                             if( 'm' == 属性ID )
                                             {
                                                 #region " ミュート "
                                                 //----------------
                                                 chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
                                                 chip.チップ種別 = チップ種別.RightCymbal_Mute;
+                                                //----------------
+                                                #endregion
+                                            }
+                                            else if( 's' == 属性ID )
+                                            {
+                                                #region " サブシンバル（右） "
+                                                //----------------
+                                                chipTokens[ i ] = chipTokens[ i ][ 1.. ].Trim();
+                                                chip.チップ種別 = チップ種別.SubRightCymbal;
                                                 //----------------
                                                 #endregion
                                             }
@@ -1421,6 +1502,17 @@ namespace SSTFormat.v004
 
                                 case チップ種別.RightCymbal_Mute:
                                     sw.Write( 'm' );
+                                    break;
+
+                                case チップ種別.SubLeftCymbal:
+                                case チップ種別.SubRightCymbal:
+                                case チップ種別.SubRide:
+                                case チップ種別.SubLeftPedal:
+                                case チップ種別.SubRightPedal:
+                                case チップ種別.SubTom1:
+                                case チップ種別.SubTom2:
+                                case チップ種別.SubTom3:
+                                    sw.Write( 's' );
                                     break;
 
                                 case チップ種別.BPM:

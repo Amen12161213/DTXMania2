@@ -11,4 +11,5 @@ RectangleList:
     Bass: [80, 0, 16, 32]
     Tom2: [96, 0, 16, 32]
     Tom3: [112, 0, 16, 32]
+    Ride: [128, 0, 16, 32]
     RightCymbal: [128, 0, 16, 32]
